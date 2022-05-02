@@ -16,7 +16,6 @@ class Login(QWidget, Ui_Login):
         #botao de login para se conectar ao sistema principal chamando a funcao de verificar senha
 
         self.pb_login.clicked.connect(self.verifica_senha)
-
     def messagebox_critical(self, txt):
         msg = QMessageBox()
         msg.setIcon(msg.Critical)
@@ -26,18 +25,29 @@ class Login(QWidget, Ui_Login):
 
     #Verifica a senha e chama o Sistema caso True
     def verifica_senha(self):
-        db = DataBase()
-        db.conecta()
-        if db.db_check_user(self.lineEdit_usuario.text().upper().strip(),self.lineEdit_senha.text().strip().upper()):
-            self.w = MainWindow()
-            self.w.show()
-            self.close()
-            db.close_conecta()
-        else:
+        try:
+            db = DataBase()
+            db.conecta()
+            if db.db_check_user(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'user':
+                self.login = self.lineEdit_usuario.text()
+                self.senha = self.lineEdit_senha.text()
+                self.w = MainWindow(self.login,self.senha)
+                self.w.bt_novo_usuario.hide()
+                self.w.show()
+                self.close()
+                db.close_conecta()
+            elif db.db_check_user(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'admin':
+                self.login = self.lineEdit_usuario.text()
+                self.senha = self.lineEdit_senha.text()
+                self.w = MainWindow(self.login,self.senha)
+                self.w.show()
+                self.close()
+                db.close_conecta()
+        except:
                     # abre uma caixa de msg com erro
             self.messagebox_critical('LOGIN OU SENHA INVÁLIDOS')
             self.lineEdit_senha.setText('')
-            db.close_conecta()
+
 
 class Produtos(QWidget, Ui_Produtos):
     def __init__(self) -> None:
@@ -48,15 +58,16 @@ class Produtos(QWidget, Ui_Produtos):
         pass
 
 
-
-
-
-
 # instancia do Sistema
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self,login,senha):
         super(MainWindow,self).__init__()
         self.setupUi(self)
+        self.login = login
+        self.senha = senha
+
+        self.get_usuario(self.login,self.senha)
+
 
             #**************BOTOES DO SISTEMA*************************
         self.bt_home.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.home))
@@ -67,11 +78,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_novo_usuario.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.Cadastro_novo_usuario))
 
                 #BOTAO PARA CADASTRAR CLIENTE NO BANCO DE DADOS
-        self.bt_cadastrar.clicked.connect(self.novo_usuario)
+        self.bt_cadastrar.clicked.connect(self.novo_cliente)
         self.bt_cadastrar_usuario.clicked.connect(self.check_senhas)
-        self.btn_check_cep.clicked.connect(self.alimenta_cep)
+        self.le_cep.textChanged.connect(self.alimenta_cep)
+
 
         self.bt_importar.clicked.connect(self.import_produto)
+
+    def get_usuario(self,login,senha):
+        db = DataBase()
+        db.conecta()
+        cursor = db.conection.cursor()
+        cursor.execute(f'select user from users where login = "{login}" and senha = "{senha}" ')
+        usuario = cursor.fetchone()
+        self.usuario = usuario[0]
+        print(self.usuario)
+        db.close_conecta()
 
     def import_produto(self):
         self.p = Produtos()
@@ -109,21 +131,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.messagebox_critical('Campos vazios\nPreencha os campos com Usuario e as senhas iguais.')
             self.le_senha1.setText('')
             self.le_senha2.setText('')
-        elif db.db_check_user(self.le_novo_usuario.text().upper().strip(), self.le_senha1.text().upper().strip()):
+        elif db.db_check_user(self.le_novo_usuario.text().strip(), self.le_senha1.text().strip()):
             self.messagebox_critical('Usuario e Senha ja Cadastrado\nPreencha os campos com um novo Usuario e senha')
             self.le_senha1.setText('')
             self.le_senha2.setText('')
             self.le_novo_usuario.setText('')
 
         else:
-            db.insert_novo_usuario(self.le_novo_usuario.text().strip('').upper(),self.le_senha1.text().upper().strip(''))
+            db.insert_novo_usuario(self.le_novo_usuario.text().strip(),self.le_senha1.text().strip(''),self.cb_users.currentText())
             self.messagebox_accept('Senha Cadastrada com Sucesso!')
             self.le_senha1.setText('')
             self.le_novo_usuario.setText('')
             self.le_senha2.setText('')
             db.close_conecta()
                 #FUNÇÃO QUE ADICIONA UM CADASTRO DE CLIENTE NO BANCO DE DADOS
-    def novo_usuario(self):
+
+    def novo_cliente(self):
         db = DataBase()
         db.conecta()
         nome = self.le_nome.text().upper().strip()
@@ -145,26 +168,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.messagebox_critical('O CAMPO "NOME" NÃO PODE CONTER NUMEROS')
             self.le_nome.setText('')
 
-        elif email == '':
-            self.messagebox_critical('O campo "EMAIL" está vazio')
-
-        elif '@' not in email:
-            self.messagebox_critical('O campo "EMAIL" não possui @ ')
-
-        elif endereco == '':
-            self.messagebox_critical('CAMPO "ENDEREÇO" VAZIO')
-
-        elif numero == '':
-            self.messagebox_critical('O CAMPO "NUMERO" ESTA VAZIO')
-
-        elif numero.isalpha():
-            self.messagebox_critical('O CAMPO "NUMERO" DEVE SER NUMERICO')
-
-        elif bairro == '':
-            self.messagebox_critical('CAMPO "BAIRRO" VAZIO')
-
-        elif cidade == '':
-            self.messagebox_critical('CAMPO "MUNICIPIO" VAZIO')
 
         elif cep == '':
             self.messagebox_critical('O CAMPO "CEP" ESTA VAZIO')
@@ -176,28 +179,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif len(cep) != 8:
             self.messagebox_critical('O CAMPO CEP DEVE TER 8 DIGITOS')
 
-        elif cpf == '':
-            self.messagebox_critical('O CAMPO "CPF" ESTA VAZIO')
-
-        elif cpf.isalpha():
-            self.messagebox_critical('O CAMPO "CPF" DEVE SER NUMERICO')
-            self.le_cpf.setText('')
-
-        elif len(cpf) != 11:
-            self.messagebox_critical('O CAMPO CPF DEVE TER 11 DIGITOS')
-
-        elif celular == '':
-            self.messagebox_critical('O CAMPO "CELULAR" ESTA VAZIO')
-
-        elif celular.isalpha():
-            self.messagebox_critical('O CAMPO "CELULAR" DEVE SER NUMERICO')
-            self.le_celular.setText('')
-
-        elif len(celular) != 11:
-            self.messagebox_critical('O CAMPO "CELULAR" DEVE TER 11 DIGITOS SENDOS OS 2 PRIMEIROS O DDD')
-
         else:
-            db.insert_novo_cliente(nome, data, email, endereco, numero, bairro, cidade, complemento, cep, cpf,celular)
+            db.insert_novo_cliente(nome, cep, data, email, endereco, numero, bairro, cidade, complemento, cpf,celular)
             self.messagebox_accept('CADASTRO REALIZADO COM SUCESSO!')
             self.le_nome.setText('')
             self.le_email.setText('')
@@ -211,18 +194,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.le_celular.setText('')
             db.close_conecta()
 
-    def alimenta_cep(self):
-        cep = self.le_cep.text().upper().strip()
-        try:
-            ceps = requests.get(f'http://viacep.com.br/ws/{cep}/json/')
-            ceps = ceps.json()
-            self.le_endereo.setText(f'{ceps["logradouro"]}')
-            self.le_bairro.setText(f'{ceps["bairro"]}')
-            self.le_municipio.setText(f'{ceps["localidade"]}')
-            self.le_complemento.setText(f'{ceps["complemento"]}')
-        except:
-            self.messagebox_critical('CEP INVÁLIDO')
-            self.le_cep.setText('')
+    def alimenta_cep(self,cep):
+        if len(self.le_cep.text()) == 8:
+            try:
+                ceps = requests.get(f'http://viacep.com.br/ws/{cep}/json/')
+                ceps = ceps.json()
+                self.le_endereo.setText(f'{ceps["logradouro"]}')
+                self.le_bairro.setText(f'{ceps["bairro"]}')
+                self.le_municipio.setText(f'{ceps["localidade"]}')
+                self.le_complemento.setText(f'{ceps["complemento"]}')
+            except:
+                self.messagebox_critical('CEP INVÁLIDO')
+                self.le_cep.setText('')
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Login()

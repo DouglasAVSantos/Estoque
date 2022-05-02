@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
     <horstretch>2</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -24,7 +24,7 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>2</pointsize>
+    <pointsize>12</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -258,7 +258,7 @@ QPushButton:hover{
     <item>
      <widget class="QStackedWidget" name="StackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="home">
        <layout class="QVBoxLayout" name="verticalLayout_31">
@@ -1071,6 +1071,12 @@ border-style: solid;
 display: inline-block;
 border-radius: 8px</string>
                  </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -1138,41 +1144,26 @@ border-radius: 8px</string>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
-                <widget class="QPushButton" name="btn_check_cep">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>0</height>
-                  </size>
-                 </property>
+                <widget class="QLabel" name="label_30">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QPushButton{
-
-background-color: rgb(219, 57, 62);
+                  <string notr="true">background-color: rgb(166, 23, 38);
 border-radius: 8px;
 color: rgb(255, 255, 255);
 border-width: 2px;
 border-color: black;
 border-style: solid;
-display: inline-block;
-}
-
-QPushButton:hover{
-
-	
-	background-color: rgb(77, 11, 17);
-	
-	color: rgb(255, 255, 255);
-
-}</string>
+display: inline-block;</string>
                  </property>
                  <property name="text">
-                  <string>Buscar CEP</string>
+                  <string>CEP</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
@@ -1928,189 +1919,188 @@ display: inline-block;</string>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_35">
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_34">
-             <item>
-              <widget class="QLabel" name="label_32">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_15">
-               <item>
-                <widget class="QLabel" name="label_30">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_13">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+border-radius: 8px</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_33">
+              <item>
+               <widget class="QLineEdit" name="le_novo_usuario">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>LOGIN</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_novo_nome_de_usuario">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>NOME DE USUARIO</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_senha1">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="echoMode">
+                 <enum>QLineEdit::Password</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Senha</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_senha2">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="echoMode">
+                 <enum>QLineEdit::Password</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Repetir Senha</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cb_users">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <item>
                  <property name="text">
-                  <string/>
+                  <string>user</string>
                  </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_33">
-                 <item>
-                  <widget class="QLineEdit" name="le_novo_usuario">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="placeholderText">
-                    <string>Usuário</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_28">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="le_senha1">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="echoMode">
-                    <enum>QLineEdit::Password</enum>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="placeholderText">
-                    <string>Senha</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_29">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="le_senha2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>21</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>21</height>
-                    </size>
-                   </property>
-                   <property name="echoMode">
-                    <enum>QLineEdit::Password</enum>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="placeholderText">
-                    <string>Repetir Senha</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_31">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>13</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="bt_cadastrar_usuario">
-                   <property name="minimumSize">
-                    <size>
-                     <width>151</width>
-                     <height>31</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>151</width>
-                     <height>31</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Courier</family>
-                     <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
+                </item>
+                <item>
+                 <property name="text">
+                  <string>admin</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="bt_cadastrar_usuario">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Courier</family>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
 
 background-color: rgb(219, 57, 62);
 border-radius: 8px;
@@ -2129,43 +2119,154 @@ QPushButton:hover{
 	color: rgb(255, 255, 255);
 
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Cadastrar</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_33">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_34">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
+                </property>
+                <property name="text">
+                 <string>Cadastrar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_29">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_14">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+border-radius: 8px</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_29">
+              <item>
+               <widget class="QLineEdit" name="le_usuario_deletar">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>NOME DE USUARIO</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_senha_deletar">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="echoMode">
+                 <enum>QLineEdit::Password</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Senha admin</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="bt_deletar_usuario">
+                <property name="minimumSize">
+                 <size>
+                  <width>151</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>151</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Courier</family>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+
+background-color: rgb(219, 57, 62);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+}
+
+QPushButton:hover{
+
+	
+	background-color: rgb(77, 11, 17);
+	
+	color: rgb(255, 255, 255);
+
+}</string>
+                </property>
+                <property name="text">
+                 <string>DELETAR</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_37">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
