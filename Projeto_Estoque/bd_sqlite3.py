@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+from datetime import datetime
 
 class DataBase():
     def __init__(self, name='Administradores.db'):
@@ -48,6 +49,37 @@ class DataBase():
         except AttributeError:
             print('Erro ao criar a tabela')
 
+    def create_table_estoque(self):
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS estoque(
+            ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+            PRODUTO TEXT NOT NULL,
+            VALOR TEXT NOT NULL,
+            UN TEXT NULL,
+            KG TEXT NULL,
+            G TEXT NULL,
+            DATA TEXT NOT NULL,
+            HORA TEXT NOT NULL
+            );
+            ''')
+        except AttributeError:
+            print('Erro ao criar a tabela estoque')
+
+    def insert_novo_produto(self, produto, valor, un='--', kg='--', g='--'):
+        d = datetime.now()
+        data = d.strftime('%d/%m/%y')
+        hora = d.strftime('%H:%M')
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute(f'''
+                INSERT INTO estoque(produto, valor,un,kg,g,data,hora) VALUES('{produto.strip().title()}','{valor}','{un}','{kg}','{g}','{data}','{hora}');
+            ''')
+            self.conection.commit()
+        except AttributeError:
+            print('faça a conexão')
+
     def insert_novo_usuario(self, nome, senha):
         try:
             cursor = self.conection.cursor()
@@ -94,6 +126,8 @@ if __name__ == '__main__':
     db.conecta()
     db.create_table_usuarios()
     db.create_table_clientes()
+    db.create_table_estoque()
+    db.insert_novo_produto('limao','3,25',un='7')
     # db.insert_novo_usuario('douglas','1234')
     # db.cria_excel()
     db.close_conecta()
