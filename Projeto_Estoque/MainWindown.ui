@@ -258,7 +258,7 @@ QPushButton:hover{
     <item>
      <widget class="QStackedWidget" name="StackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="home">
        <layout class="QVBoxLayout" name="verticalLayout_31">
@@ -2061,6 +2061,12 @@ border-radius: 8px</string>
                  <font>
                   <pointsize>12</pointsize>
                  </font>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QComboBox::AdjustToContents</enum>
                 </property>
                 <item>
                  <property name="text">

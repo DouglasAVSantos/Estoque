@@ -121,7 +121,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #**************BOTOES DO SISTEMA*************************
         self.bt_home.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.home))
         self.bt_contato.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.Contato))
-        self.bt_estoque.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.estoque))
+        self.bt_estoque.clicked.connect(self.reset_table_estoque)
         self.bt_cadastro.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.cadastro))
         self.bt_clientes.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.clientes))
         self.bt_novo_usuario.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.Cadastro_novo_usuario))
@@ -253,6 +253,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.show_table_estoque()
         self.show_table_clientes()
 
+    def reset_table_estoque(self):
+        self.StackedWidget.setCurrentWidget(self.estoque)
+        self.reset_tables()
 
     def novo_cliente(self):
         db = DataBase()
@@ -315,6 +318,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except:
                 self.messagebox_critical('CEP INVÁLIDO')
                 self.le_cep.setText('')
+
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Login()
