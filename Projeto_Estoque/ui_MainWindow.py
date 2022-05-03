@@ -1246,6 +1246,14 @@ class Ui_MainWindow(object):
         self.frame_13.setFrameShadow(QFrame.Raised)
         self.verticalLayout_33 = QVBoxLayout(self.frame_13)
         self.verticalLayout_33.setObjectName(u"verticalLayout_33")
+        self.le_novo_login = QLineEdit(self.frame_13)
+        self.le_novo_login.setObjectName(u"le_novo_login")
+        self.le_novo_login.setMinimumSize(QSize(151, 20))
+        self.le_novo_login.setMaximumSize(QSize(151, 20))
+        self.le_novo_login.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_33.addWidget(self.le_novo_login)
+
         self.le_novo_usuario = QLineEdit(self.frame_13)
         self.le_novo_usuario.setObjectName(u"le_novo_usuario")
         self.le_novo_usuario.setMinimumSize(QSize(151, 20))
@@ -1253,14 +1261,6 @@ class Ui_MainWindow(object):
         self.le_novo_usuario.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_33.addWidget(self.le_novo_usuario)
-
-        self.le_novo_nome_de_usuario = QLineEdit(self.frame_13)
-        self.le_novo_nome_de_usuario.setObjectName(u"le_novo_nome_de_usuario")
-        self.le_novo_nome_de_usuario.setMinimumSize(QSize(151, 20))
-        self.le_novo_nome_de_usuario.setMaximumSize(QSize(151, 20))
-        self.le_novo_nome_de_usuario.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_33.addWidget(self.le_novo_nome_de_usuario)
 
         self.le_senha1 = QLineEdit(self.frame_13)
         self.le_senha1.setObjectName(u"le_senha1")
@@ -1403,7 +1403,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.StackedWidget.setCurrentIndex(3)
+        self.StackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1467,8 +1467,8 @@ class Ui_MainWindow(object):
         self.label_35.setText("")
         self.label_36.setText("")
         self.label_28.setText("")
-        self.le_novo_usuario.setPlaceholderText(QCoreApplication.translate("MainWindow", u"LOGIN", None))
-        self.le_novo_nome_de_usuario.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NOME DE USUARIO", None))
+        self.le_novo_login.setPlaceholderText(QCoreApplication.translate("MainWindow", u"LOGIN", None))
+        self.le_novo_usuario.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NOME DE USUARIO", None))
         self.le_senha1.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Senha", None))
         self.le_senha2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Repetir Senha", None))
         self.cb_users.setItemText(0, QCoreApplication.translate("MainWindow", u"user", None))

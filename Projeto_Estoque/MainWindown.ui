@@ -258,7 +258,7 @@ QPushButton:hover{
     <item>
      <widget class="QStackedWidget" name="StackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="home">
        <layout class="QVBoxLayout" name="verticalLayout_31">
@@ -1950,7 +1950,7 @@ border-radius: 8px</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_33">
               <item>
-               <widget class="QLineEdit" name="le_novo_usuario">
+               <widget class="QLineEdit" name="le_novo_login">
                 <property name="minimumSize">
                  <size>
                   <width>151</width>
@@ -1972,7 +1972,7 @@ border-radius: 8px</string>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="le_novo_nome_de_usuario">
+               <widget class="QLineEdit" name="le_novo_usuario">
                 <property name="minimumSize">
                  <size>
                   <width>151</width>

@@ -1,6 +1,7 @@
 import sys
 from bd_sqlite3 import DataBase
 from PySide2.QtWidgets import (QApplication, QMainWindow,QWidget,QMessageBox)
+from PySide2.QtSql import QSqlDatabase, QSqlTableModel
 from ui_login import Ui_Login
 from ui_MainWindow import Ui_MainWindow
 from Produtos_ui import Ui_Produtos
@@ -28,7 +29,7 @@ class Login(QWidget, Ui_Login):
         try:
             db = DataBase()
             db.conecta()
-            if db.db_check_user(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'user':
+            if db.db_check_user_admin(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'user':
                 self.login = self.lineEdit_usuario.text()
                 self.senha = self.lineEdit_senha.text()
                 self.w = MainWindow(self.login,self.senha)
@@ -36,7 +37,7 @@ class Login(QWidget, Ui_Login):
                 self.w.show()
                 self.close()
                 db.close_conecta()
-            elif db.db_check_user(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'admin':
+            elif db.db_check_user_admin(self.lineEdit_usuario.text().strip(),self.lineEdit_senha.text().strip()) == 'admin':
                 self.login = self.lineEdit_usuario.text()
                 self.senha = self.lineEdit_senha.text()
                 self.w = MainWindow(self.login,self.senha)
@@ -50,12 +51,60 @@ class Login(QWidget, Ui_Login):
 
 
 class Produtos(QWidget, Ui_Produtos):
-    def __init__(self) -> None:
+    def __init__(self,user) -> None:
         super(Produtos,self).__init__()
         self.setupUi(self)
+        self.user = user
+
+        self.bt_novo_produto.clicked.connect(self.add_produto)
+
+    def messagebox_critical(self, txt):
+        msg = QMessageBox()
+        msg.setIcon(msg.Critical)
+        msg.setWindowTitle('ERRO DE DADOS')
+        msg.setText(txt)
+        msg.exec()
+
+    def messagebox_accept(self, txt):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowTitle("DADOS ACEITOS")
+        msg.setText(txt)
+        msg.exec_()
+
 
     def add_produto(self):
-        pass
+        produto = self.le_produto.text()
+        user = self.user
+        ref = self.comboBox_quantidade.currentText()
+        quantidade = self.le_quantidade.text()
+        quantidade_int = int(quantidade)
+        valor = self.le_valor.text().replace(',','.')
+        valor_int = float(valor)
+        valor_total = f"{valor_int*quantidade_int:.2f}".replace('.',',')
+        valorstr = self.le_valor.text()
+        if ref == 'KG':
+            db = DataBase()
+            db.conecta()
+            db.insert_novo_produto(produto,user,valorstr,valor_total,kg=quantidade)
+            self.messagebox_accept('PRODUTO CADASTRADO COM SUCESSO')
+            self.close()
+            db.close_conecta()
+        elif ref == 'G':
+            db = DataBase()
+            db.conecta()
+            db.insert_novo_produto(produto, user, valorstr, valor_total, g=quantidade)
+            self.messagebox_accept('PRODUTO CADASTRADO COM SUCESSO')
+            self.close()
+            db.close_conecta()
+        elif ref == 'UN':
+            db = DataBase()
+            db.conecta()
+            db.insert_novo_produto(produto, user, valorstr, valor_total, un=quantidade)
+            self.messagebox_accept('PRODUTO CADASTRADO COM SUCESSO')
+            self.close()
+            db.close_conecta()
+
 
 
 # instancia do Sistema
@@ -79,25 +128,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #BOTAO PARA CADASTRAR CLIENTE NO BANCO DE DADOS
         self.bt_cadastrar.clicked.connect(self.novo_cliente)
-        self.bt_cadastrar_usuario.clicked.connect(self.check_senhas)
+
+        self.bt_cadastrar_usuario.clicked.connect(self.new_user)
+        self.bt_deletar_usuario.clicked.connect(self.delete_user)
+
         self.le_cep.textChanged.connect(self.alimenta_cep)
 
 
         self.bt_importar.clicked.connect(self.import_produto)
 
+        self.reset_tables()
+
     def get_usuario(self,login,senha):
-        db = DataBase()
-        db.conecta()
-        cursor = db.conection.cursor()
-        cursor.execute(f'select user from users where login = "{login}" and senha = "{senha}" ')
-        usuario = cursor.fetchone()
-        self.usuario = usuario[0]
-        print(self.usuario)
-        db.close_conecta()
+        try:
+            db = DataBase()
+            db.conecta()
+            cursor = db.conection.cursor()
+            cursor.execute(f'select user from users where login = "{login}" and senha = "{senha}" ')
+            usuario = cursor.fetchone()
+            self.usuario = usuario[0]
+            print(self.usuario)
+            db.close_conecta()
+        except:
+            self.messagebox_critical('Usuario não encontrado')
 
     def import_produto(self):
-        self.p = Produtos()
+        self.p = Produtos(self.usuario)
         self.p.show()
+        self.reset_tables()
 
 
 
@@ -120,31 +178,81 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         msg.setText(txt)
         msg.exec_()
 
-    def check_senhas(self):
+    def new_user(self):
         db = DataBase()
         db.conecta()
-        if self.le_senha1.text().upper().strip() != self.le_senha2.text().upper().strip():
+        login = self.le_novo_login.text().strip()
+        senha = self.le_senha1.text().strip()
+        usuario = self.le_novo_usuario.text().strip()
+        acess = self.cb_users.currentText()
+
+
+        if senha != self.le_senha2.text().strip():
             self.messagebox_critical('As senhas informadas não são iguais\nPreencha os campos com as senhas iguais.')
             self.le_senha1.setText('')
             self.le_senha2.setText('')
-        elif self.le_senha1.text() == '' and self.le_senha2.text() == '' and self.le_novo_usuario.text() == '':
+        elif senha == '' or self.le_senha2.text() == '' or usuario == '' or login == '':
             self.messagebox_critical('Campos vazios\nPreencha os campos com Usuario e as senhas iguais.')
             self.le_senha1.setText('')
             self.le_senha2.setText('')
-        elif db.db_check_user(self.le_novo_usuario.text().strip(), self.le_senha1.text().strip()):
+        elif db.check_login_exists(login, senha):
             self.messagebox_critical('Usuario e Senha ja Cadastrado\nPreencha os campos com um novo Usuario e senha')
             self.le_senha1.setText('')
             self.le_senha2.setText('')
             self.le_novo_usuario.setText('')
-
         else:
-            db.insert_novo_usuario(self.le_novo_usuario.text().strip(),self.le_senha1.text().strip(''),self.cb_users.currentText())
+            db.insert_novo_usuario(login,usuario,senha,acess)
             self.messagebox_accept('Senha Cadastrada com Sucesso!')
             self.le_senha1.setText('')
+            self.le_novo_login.setText('')
             self.le_novo_usuario.setText('')
             self.le_senha2.setText('')
             db.close_conecta()
                 #FUNÇÃO QUE ADICIONA UM CADASTRO DE CLIENTE NO BANCO DE DADOS
+
+    def delete_user(self):
+        db = DataBase()
+        db.conecta()
+        usuario = self.le_usuario_deletar.text()
+
+        if self.le_senha_deletar.text() == self.senha and db.check_user_exists(usuario):
+            db.delete_user(usuario)
+            self.messagebox_accept('USUARIO DELETADO COM SUCESSO!')
+            self.le_usuario_deletar.setText('')
+            self.le_senha_deletar.setText('')
+            db.close_conecta()
+        else:
+            self.messagebox_critical('USUARIO NÃO CADASTRADO')
+            self.le_usuario_deletar.setText('')
+            self.le_senha_deletar.setText('')
+            db.close_conecta()
+
+    def show_table_clientes(self):
+        db = QSqlDatabase('QSQLITE')
+        db.setDatabaseName('system.db')
+        db.open()
+
+        self.model = QSqlTableModel(db=db)
+        self.tv_clientes.setModel(self.model)
+        self.model.setTable('clientes')
+        self.model.select()
+
+    def show_table_estoque(self):
+        db = QSqlDatabase('QSQLITE')
+        db.setDatabaseName('system.db')
+        db.open()
+
+        self.model = QSqlTableModel(db=db)
+        self.tv_estoque.setModel(self.model)
+        self.model.setTable('estoque')
+        self.model.select()
+
+    def reset_tables(self):
+        self.tv_estoque.update()
+        self.tv_clientes.update()
+        self.show_table_estoque()
+        self.show_table_clientes()
+
 
     def novo_cliente(self):
         db = DataBase()
@@ -181,6 +289,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         else:
             db.insert_novo_cliente(nome, cep, data, email, endereco, numero, bairro, cidade, complemento, cpf,celular)
+            self.reset_tables()
             self.messagebox_accept('CADASTRO REALIZADO COM SUCESSO!')
             self.le_nome.setText('')
             self.le_email.setText('')

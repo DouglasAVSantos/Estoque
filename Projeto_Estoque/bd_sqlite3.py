@@ -59,6 +59,7 @@ class DataBase():
             ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
             PRODUTO TEXT NOT NULL,
             VALOR TEXT NOT NULL,
+            VALOR_TOTAL TEXT NOT NULL,
             UN TEXT NULL,
             KG TEXT NULL,
             G TEXT NULL,
@@ -70,14 +71,14 @@ class DataBase():
         except AttributeError:
             print('Erro ao criar a tabela estoque')
 
-    def insert_novo_produto(self, produto,user, valor, un='--', kg='--', g='--'):
+    def insert_novo_produto(self, produto,user, valor,valor_total, un='--', kg='--', g='--'):
         d = datetime.now()
         data = d.strftime('%d/%m/%y')
         hora = d.strftime('%H:%M')
         try:
             cursor = self.conection.cursor()
             cursor.execute(f'''
-                INSERT INTO estoque(produto, valor,un,kg,g,data,hora,user) VALUES('{produto.strip().title()}','{valor}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+                INSERT INTO estoque(produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{produto.strip().title()}','{valor}','{valor_total}','{un}','{kg}','{g}','{data}','{hora}','{user}');
             ''')
             self.conection.commit()
         except AttributeError:
@@ -92,6 +93,16 @@ class DataBase():
             self.conection.commit()
         except AttributeError:
             print('faça a conexão')
+
+    def delete_user(self,usuario):
+         try:
+            self.usuario = usuario
+            cursor = self.conection.cursor()
+            cursor.execute(f'Delete from users where user = "{self.usuario}"')
+            self.conection.commit()
+         except:
+             print('faça a conexão')
+
 
     def insert_novo_cliente(self,nome,cep,data="--",email="--",endereco="--",numero="--",bairro="--",cidade="--",complemento="--",cpf="--",celular="--"):
             try:
@@ -118,8 +129,8 @@ class DataBase():
             except AttributeError:
                 print('faça a conexão')
 
-    def db_check_user(self, login, senha):
-        # try:
+    def db_check_user_admin(self, login, senha):
+         try:
             cursor = self.conection.cursor()
             cursor.execute('''
             SELECT * FROM users;
@@ -131,8 +142,40 @@ class DataBase():
                     continue
             return 'user'
 
-        # except Exception:
-        #      return False
+         except Exception:
+            return False
+
+    def check_login_exists(self,login,senha):
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute('''
+           SELECT * FROM users;
+           ''')
+            for linha in cursor.fetchall():
+                if linha[0] == login and linha[2] == senha:
+                    return True
+                else:
+                    continue
+            return False
+
+        except Exception:
+            print('faça a conexão')
+
+    def check_user_exists(self,user):
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute('''
+           SELECT * FROM users;
+           ''')
+            for linha in cursor.fetchall():
+                if linha[1] == user:
+                    return True
+                else:
+                    continue
+            return False
+
+        except Exception:
+            print('faça a conexão')
 
 
 
@@ -148,8 +191,8 @@ if __name__ == '__main__':
     db.create_table_usuarios()
     db.create_table_clientes()
     db.create_table_estoque()
-    # db.insert_novo_usuario('douglas','doug_avs','123','admin')
-    # db.insert_novo_usuario('gabriela','gabs','123',)
+    db.insert_novo_usuario('douglas','doug_avs','123','admin')
+    db.insert_novo_usuario('gabriela','gabs','123',)
     # print(db.db_check_user('douglas','123'))
     # print(db.db_check_user('gabriela','123'))
     # db.cria_excel()
