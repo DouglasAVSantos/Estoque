@@ -34,7 +34,7 @@ class Ui_Login(object):
         self.label_4.setSizePolicy(sizePolicy)
         self.label_4.setMinimumSize(QSize(301, 271))
         self.label_4.setMaximumSize(QSize(301, 271))
-        self.label_4.setPixmap(QPixmap(u"logo2.png"))
+        self.label_4.setPixmap(QPixmap(u"img/logo2.png"))
         self.label_4.setScaledContents(True)
         self.pb_login = QPushButton(Login)
         self.pb_login.setObjectName(u"pb_login")
@@ -89,11 +89,9 @@ class Ui_Login(object):
 "}")
         self.label_4.raise_()
         self.label.raise_()
-        self.label.raise_()
-        self.label.raise_()
-        self.pb_login.raise_()
-        self.lineEdit_senha.raise_()
         self.lineEdit_usuario.raise_()
+        self.lineEdit_senha.raise_()
+        self.pb_login.raise_()
 
         self.retranslateUi(Login)
 

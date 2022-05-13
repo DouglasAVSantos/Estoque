@@ -63,7 +63,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>logo2.png</pixmap>
+    <pixmap>img/logo2.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -197,18 +197,9 @@ QPushButton:hover{
   </widget>
   <zorder>label_4</zorder>
   <zorder>label</zorder>
-  <zorder>label</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_5</zorder>
-  <zorder>label_6</zorder>
-  <zorder>label_7</zorder>
-  <zorder>pb_login</zorder>
-  <zorder>lineEdit_senha</zorder>
   <zorder>lineEdit_usuario</zorder>
+  <zorder>lineEdit_senha</zorder>
+  <zorder>pb_login</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>587</height>
+    <width>878</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,7 +57,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>logo2.png</pixmap>
+         <pixmap>img/logo2.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -82,10 +82,13 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>importar_produto.png</pixmap>
+         <pixmap>img/importar_produto.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>

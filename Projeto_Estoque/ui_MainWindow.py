@@ -199,7 +199,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_30.setObjectName(u"verticalLayout_30")
         self.label = QLabel(self.home)
         self.label.setObjectName(u"label")
-        self.label.setPixmap(QPixmap(u"logo2.png"))
+        self.label.setPixmap(QPixmap(u"img/logo2.png"))
         self.label.setScaledContents(False)
         self.label.setAlignment(Qt.AlignCenter)
 
@@ -323,80 +323,12 @@ class Ui_MainWindow(object):
 "border-color: black;\n"
 "border-style: solid;\n"
 "display: inline-block;")
+        self.tv_clientes.setEditTriggers(QAbstractItemView.DoubleClicked)
 
         self.verticalLayout_27.addWidget(self.tv_clientes)
 
 
         self.horizontalLayout_14.addLayout(self.verticalLayout_27)
-
-        self.frame_10 = QFrame(self.clientes)
-        self.frame_10.setObjectName(u"frame_10")
-        self.frame_10.setFrameShape(QFrame.StyledPanel)
-        self.frame_10.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_26 = QVBoxLayout(self.frame_10)
-        self.verticalLayout_26.setObjectName(u"verticalLayout_26")
-        self.bt_modifica_clientes = QPushButton(self.frame_10)
-        self.bt_modifica_clientes.setObjectName(u"bt_modifica_clientes")
-        self.bt_modifica_clientes.setMinimumSize(QSize(121, 31))
-        self.bt_modifica_clientes.setMaximumSize(QSize(121, 31))
-        self.bt_modifica_clientes.setFont(font)
-        self.bt_modifica_clientes.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_modifica_clientes.setStyleSheet(u"QPushButton{\n"
-"\n"
-"background-color: rgb(219, 57, 62);\n"
-"border-radius: 8px;\n"
-"color: rgb(255, 255, 255);\n"
-"border-width: 2px;\n"
-"border-color: black;\n"
-"border-style: solid;\n"
-"display: inline-block;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"\n"
-"	\n"
-"	background-color: rgb(77, 11, 17);\n"
-"	\n"
-"	color: rgb(255, 255, 255);\n"
-"\n"
-"}")
-
-        self.verticalLayout_26.addWidget(self.bt_modifica_clientes)
-
-        self.bt_exclui_clientes = QPushButton(self.frame_10)
-        self.bt_exclui_clientes.setObjectName(u"bt_exclui_clientes")
-        self.bt_exclui_clientes.setMinimumSize(QSize(121, 31))
-        self.bt_exclui_clientes.setMaximumSize(QSize(121, 31))
-        self.bt_exclui_clientes.setFont(font)
-        self.bt_exclui_clientes.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_exclui_clientes.setStyleSheet(u"QPushButton{\n"
-"\n"
-"background-color: rgb(219, 57, 62);\n"
-"border-radius: 8px;\n"
-"color: rgb(255, 255, 255);\n"
-"border-width: 2px;\n"
-"border-color: black;\n"
-"border-style: solid;\n"
-"display: inline-block;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"\n"
-"	\n"
-"	background-color: rgb(77, 11, 17);\n"
-"	\n"
-"	color: rgb(255, 255, 255);\n"
-"\n"
-"}")
-
-        self.verticalLayout_26.addWidget(self.bt_exclui_clientes)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_26.addItem(self.verticalSpacer_2)
-
-
-        self.horizontalLayout_14.addWidget(self.frame_10)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_14)
@@ -407,12 +339,14 @@ class Ui_MainWindow(object):
         self.StackedWidget.addWidget(self.clientes)
         self.estoque = QWidget()
         self.estoque.setObjectName(u"estoque")
-        self.verticalLayout_28 = QVBoxLayout(self.estoque)
-        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
-        self.verticalLayout_20 = QVBoxLayout()
-        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.horizontalLayout_13 = QHBoxLayout()
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.verticalLayout_34 = QVBoxLayout(self.estoque)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.verticalLayout_26 = QVBoxLayout()
+        self.verticalLayout_26.setObjectName(u"verticalLayout_26")
+        self.horizontalLayout_17 = QHBoxLayout()
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.label_40 = QLabel(self.estoque)
         self.label_40.setObjectName(u"label_40")
         self.label_40.setFont(font4)
@@ -425,28 +359,23 @@ class Ui_MainWindow(object):
 "display: inline-block;")
         self.label_40.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_13.addWidget(self.label_40)
+        self.horizontalLayout_17.addWidget(self.label_40)
 
-        self.le_filtro_produtos = QLineEdit(self.estoque)
-        self.le_filtro_produtos.setObjectName(u"le_filtro_produtos")
-        self.le_filtro_produtos.setMinimumSize(QSize(0, 21))
-        self.le_filtro_produtos.setStyleSheet(u"border-radius: 8px;\n"
+        self.le_filtro_produto = QLineEdit(self.estoque)
+        self.le_filtro_produto.setObjectName(u"le_filtro_produto")
+        self.le_filtro_produto.setStyleSheet(u"border-radius: 8px;\n"
 "border-width: 2px;\n"
 "border-color: black;\n"
 "border-style: solid;\n"
 "display: inline-block;")
 
-        self.horizontalLayout_13.addWidget(self.le_filtro_produtos)
+        self.horizontalLayout_17.addWidget(self.le_filtro_produto)
 
 
-        self.verticalLayout_20.addLayout(self.horizontalLayout_13)
+        self.verticalLayout_26.addLayout(self.horizontalLayout_17)
 
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.verticalLayout_6 = QVBoxLayout()
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_5 = QVBoxLayout()
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_20 = QVBoxLayout()
+        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
         self.label_3 = QLabel(self.estoque)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setFont(font5)
@@ -459,20 +388,56 @@ class Ui_MainWindow(object):
 "display: inline-block;")
         self.label_3.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_5.addWidget(self.label_3)
+        self.verticalLayout_20.addWidget(self.label_3)
 
         self.tv_estoque = QTableView(self.estoque)
         self.tv_estoque.setObjectName(u"tv_estoque")
+        font6 = QFont()
+        font6.setPointSize(12)
+        font6.setBold(True)
+        font6.setWeight(75)
+        self.tv_estoque.setFont(font6)
+        self.tv_estoque.viewport().setProperty("cursor", QCursor(Qt.PointingHandCursor))
         self.tv_estoque.setStyleSheet(u"border-radius: 8px;\n"
+"border-width: 1px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.tv_estoque.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+        self.verticalLayout_20.addWidget(self.tv_estoque)
+
+
+        self.verticalLayout_26.addLayout(self.verticalLayout_20)
+
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.label_41 = QLabel(self.estoque)
+        self.label_41.setObjectName(u"label_41")
+        self.label_41.setFont(font4)
+        self.label_41.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_41.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_13.addWidget(self.label_41)
+
+        self.le_filtro_produto_saida = QLineEdit(self.estoque)
+        self.le_filtro_produto_saida.setObjectName(u"le_filtro_produto_saida")
+        self.le_filtro_produto_saida.setStyleSheet(u"border-radius: 8px;\n"
 "border-width: 2px;\n"
 "border-color: black;\n"
 "border-style: solid;\n"
 "display: inline-block;")
 
-        self.verticalLayout_5.addWidget(self.tv_estoque)
+        self.horizontalLayout_13.addWidget(self.le_filtro_produto_saida)
 
 
-        self.verticalLayout_6.addLayout(self.verticalLayout_5)
+        self.verticalLayout_26.addLayout(self.horizontalLayout_13)
 
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
@@ -492,19 +457,315 @@ class Ui_MainWindow(object):
 
         self.tv_saida = QTableView(self.estoque)
         self.tv_saida.setObjectName(u"tv_saida")
+        self.tv_saida.setFont(font6)
+        self.tv_saida.viewport().setProperty("cursor", QCursor(Qt.PointingHandCursor))
         self.tv_saida.setStyleSheet(u"border-radius: 8px;\n"
+"border-width: 1px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.tv_saida.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tv_saida.setTextElideMode(Qt.ElideMiddle)
+
+        self.verticalLayout_4.addWidget(self.tv_saida)
+
+
+        self.verticalLayout_26.addLayout(self.verticalLayout_4)
+
+
+        self.horizontalLayout_19.addLayout(self.verticalLayout_26)
+
+        self.verticalLayout_28 = QVBoxLayout()
+        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
+        self.frame_15 = QFrame(self.estoque)
+        self.frame_15.setObjectName(u"frame_15")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.frame_15.sizePolicy().hasHeightForWidth())
+        self.frame_15.setSizePolicy(sizePolicy1)
+        self.frame_15.setStyleSheet(u"border-radius: 8px;\n"
+"border-width: 1px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.frame_15.setFrameShape(QFrame.StyledPanel)
+        self.frame_15.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_5 = QVBoxLayout(self.frame_15)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.label_48 = QLabel(self.frame_15)
+        self.label_48.setObjectName(u"label_48")
+        self.label_48.setMaximumSize(QSize(16777215, 20))
+        self.label_48.setFont(font4)
+        self.label_48.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_48.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_48)
+
+        self.le_ID_produto = QLineEdit(self.frame_15)
+        self.le_ID_produto.setObjectName(u"le_ID_produto")
+        self.le_ID_produto.setFont(font)
+        self.le_ID_produto.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_ID_produto)
+
+        self.label_42 = QLabel(self.frame_15)
+        self.label_42.setObjectName(u"label_42")
+        self.label_42.setMaximumSize(QSize(16777215, 20))
+        self.label_42.setFont(font4)
+        self.label_42.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_42.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_42)
+
+        self.le_produto = QLineEdit(self.frame_15)
+        self.le_produto.setObjectName(u"le_produto")
+        self.le_produto.setFont(font)
+        self.le_produto.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_produto)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setSpacing(6)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label_43 = QLabel(self.frame_15)
+        self.label_43.setObjectName(u"label_43")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.label_43.sizePolicy().hasHeightForWidth())
+        self.label_43.setSizePolicy(sizePolicy2)
+        self.label_43.setMaximumSize(QSize(16777215, 22))
+        self.label_43.setFont(font4)
+        self.label_43.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_43.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_4.addWidget(self.label_43)
+
+        self.comboBox_un = QComboBox(self.frame_15)
+        self.comboBox_un.addItem("")
+        self.comboBox_un.addItem("")
+        self.comboBox_un.addItem("")
+        self.comboBox_un.setObjectName(u"comboBox_un")
+        self.comboBox_un.setFont(font4)
+        self.comboBox_un.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
 "border-width: 2px;\n"
 "border-color: black;\n"
 "border-style: solid;\n"
 "display: inline-block;")
 
-        self.verticalLayout_4.addWidget(self.tv_saida)
+        self.horizontalLayout_4.addWidget(self.comboBox_un)
 
 
-        self.verticalLayout_6.addLayout(self.verticalLayout_4)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_4)
+
+        self.le_quantidade = QLineEdit(self.frame_15)
+        self.le_quantidade.setObjectName(u"le_quantidade")
+        self.le_quantidade.setFont(font)
+        self.le_quantidade.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_quantidade)
+
+        self.label_44 = QLabel(self.frame_15)
+        self.label_44.setObjectName(u"label_44")
+        self.label_44.setMaximumSize(QSize(16777215, 20))
+        self.label_44.setFont(font4)
+        self.label_44.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_44.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_44)
+
+        self.le_valor = QLineEdit(self.frame_15)
+        self.le_valor.setObjectName(u"le_valor")
+        self.le_valor.setFont(font)
+        self.le_valor.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_valor)
 
 
-        self.horizontalLayout_4.addLayout(self.verticalLayout_6)
+        self.verticalLayout_28.addWidget(self.frame_15)
+
+        self.frame_16 = QFrame(self.estoque)
+        self.frame_16.setObjectName(u"frame_16")
+        sizePolicy1.setHeightForWidth(self.frame_16.sizePolicy().hasHeightForWidth())
+        self.frame_16.setSizePolicy(sizePolicy1)
+        self.frame_16.setStyleSheet(u"border-radius: 8px;\n"
+"border-width: 1px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.frame_16.setFrameShape(QFrame.StyledPanel)
+        self.frame_16.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_16)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.label_49 = QLabel(self.frame_16)
+        self.label_49.setObjectName(u"label_49")
+        self.label_49.setMaximumSize(QSize(16777215, 20))
+        self.label_49.setFont(font4)
+        self.label_49.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_49.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.label_49)
+
+        self.le_ID_produto_saida = QLineEdit(self.frame_16)
+        self.le_ID_produto_saida.setObjectName(u"le_ID_produto_saida")
+        self.le_ID_produto_saida.setFont(font)
+        self.le_ID_produto_saida.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.le_ID_produto_saida)
+
+        self.label_45 = QLabel(self.frame_16)
+        self.label_45.setObjectName(u"label_45")
+        self.label_45.setMaximumSize(QSize(16777215, 20))
+        self.label_45.setFont(font4)
+        self.label_45.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_45.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.label_45)
+
+        self.le_produto_saida = QLineEdit(self.frame_16)
+        self.le_produto_saida.setObjectName(u"le_produto_saida")
+        self.le_produto_saida.setFont(font)
+        self.le_produto_saida.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.le_produto_saida)
+
+        self.horizontalLayout_18 = QHBoxLayout()
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.label_46 = QLabel(self.frame_16)
+        self.label_46.setObjectName(u"label_46")
+        self.label_46.setMaximumSize(QSize(16777215, 22))
+        self.label_46.setFont(font4)
+        self.label_46.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_46.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_18.addWidget(self.label_46)
+
+        self.comboBox_un_saida = QComboBox(self.frame_16)
+        self.comboBox_un_saida.addItem("")
+        self.comboBox_un_saida.addItem("")
+        self.comboBox_un_saida.addItem("")
+        self.comboBox_un_saida.setObjectName(u"comboBox_un_saida")
+        self.comboBox_un_saida.setFont(font4)
+        self.comboBox_un_saida.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+
+        self.horizontalLayout_18.addWidget(self.comboBox_un_saida)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_18)
+
+        self.le_quantidade_saida = QLineEdit(self.frame_16)
+        self.le_quantidade_saida.setObjectName(u"le_quantidade_saida")
+        self.le_quantidade_saida.setFont(font)
+        self.le_quantidade_saida.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.le_quantidade_saida)
+
+        self.label_47 = QLabel(self.frame_16)
+        self.label_47.setObjectName(u"label_47")
+        self.label_47.setMaximumSize(QSize(16777215, 20))
+        self.label_47.setFont(font4)
+        self.label_47.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_47.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.label_47)
+
+        self.le_valor_saida = QLineEdit(self.frame_16)
+        self.le_valor_saida.setObjectName(u"le_valor_saida")
+        self.le_valor_saida.setFont(font)
+        self.le_valor_saida.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.le_valor_saida)
+
+        self.bt_extorno = QPushButton(self.frame_16)
+        self.bt_extorno.setObjectName(u"bt_extorno")
+        self.bt_extorno.setMinimumSize(QSize(121, 31))
+        self.bt_extorno.setMaximumSize(QSize(121, 31))
+        self.bt_extorno.setFont(font)
+        self.bt_extorno.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_extorno.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background-color: rgb(219, 57, 62);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	\n"
+"	background-color: rgb(77, 11, 17);\n"
+"	\n"
+"	color: rgb(255, 255, 255);\n"
+"\n"
+"}")
+
+        self.verticalLayout_6.addWidget(self.bt_extorno, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
+
+        self.verticalLayout_28.addWidget(self.frame_16)
+
+
+        self.horizontalLayout_19.addLayout(self.verticalLayout_28)
 
         self.frame_2 = QFrame(self.estoque)
         self.frame_2.setObjectName(u"frame_2")
@@ -516,11 +777,11 @@ class Ui_MainWindow(object):
         self.bt_importar.setObjectName(u"bt_importar")
         self.bt_importar.setMinimumSize(QSize(121, 31))
         self.bt_importar.setMaximumSize(QSize(121, 31))
-        font6 = QFont()
-        font6.setPointSize(12)
-        font6.setBold(False)
-        font6.setWeight(50)
-        self.bt_importar.setFont(font6)
+        font7 = QFont()
+        font7.setPointSize(12)
+        font7.setBold(False)
+        font7.setWeight(50)
+        self.bt_importar.setFont(font7)
         self.bt_importar.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_importar.setStyleSheet(u"QPushButton{\n"
 "\n"
@@ -543,6 +804,34 @@ class Ui_MainWindow(object):
 "}")
 
         self.verticalLayout_3.addWidget(self.bt_importar)
+
+        self.bt_alterar = QPushButton(self.frame_2)
+        self.bt_alterar.setObjectName(u"bt_alterar")
+        self.bt_alterar.setMinimumSize(QSize(121, 31))
+        self.bt_alterar.setMaximumSize(QSize(121, 31))
+        self.bt_alterar.setFont(font7)
+        self.bt_alterar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_alterar.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background-color: rgb(219, 57, 62);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	\n"
+"	background-color: rgb(77, 11, 17);\n"
+"	\n"
+"	color: rgb(255, 255, 255);\n"
+"\n"
+"}")
+
+        self.verticalLayout_3.addWidget(self.bt_alterar)
 
         self.bt_gerar_saida = QPushButton(self.frame_2)
         self.bt_gerar_saida.setObjectName(u"bt_gerar_saida")
@@ -572,46 +861,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.bt_gerar_saida)
 
-        self.bt_extorno = QPushButton(self.frame_2)
-        self.bt_extorno.setObjectName(u"bt_extorno")
-        self.bt_extorno.setMinimumSize(QSize(121, 31))
-        self.bt_extorno.setMaximumSize(QSize(121, 31))
-        self.bt_extorno.setFont(font)
-        self.bt_extorno.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_extorno.setStyleSheet(u"QPushButton{\n"
-"\n"
-"background-color: rgb(219, 57, 62);\n"
-"border-radius: 8px;\n"
-"color: rgb(255, 255, 255);\n"
-"border-width: 2px;\n"
-"border-color: black;\n"
-"border-style: solid;\n"
-"display: inline-block;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"\n"
-"	\n"
-"	background-color: rgb(77, 11, 17);\n"
-"	\n"
-"	color: rgb(255, 255, 255);\n"
-"\n"
-"}")
-
-        self.verticalLayout_3.addWidget(self.bt_extorno)
-
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
 
-        self.horizontalLayout_4.addWidget(self.frame_2)
+        self.horizontalLayout_19.addWidget(self.frame_2)
 
 
-        self.verticalLayout_20.addLayout(self.horizontalLayout_4)
-
-
-        self.verticalLayout_28.addLayout(self.verticalLayout_20)
+        self.verticalLayout_34.addLayout(self.horizontalLayout_19)
 
         self.StackedWidget.addWidget(self.estoque)
         self.cadastro = QWidget()
@@ -620,11 +878,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.frame_4 = QFrame(self.cadastro)
         self.frame_4.setObjectName(u"frame_4")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
-        self.frame_4.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
+        self.frame_4.setSizePolicy(sizePolicy2)
         self.frame_4.setFrameShape(QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_7 = QHBoxLayout(self.frame_4)
@@ -633,7 +888,7 @@ class Ui_MainWindow(object):
         self.label_5.setObjectName(u"label_5")
         self.label_5.setMinimumSize(QSize(291, 291))
         self.label_5.setMaximumSize(QSize(291, 291))
-        self.label_5.setPixmap(QPixmap(u"logo2.png"))
+        self.label_5.setPixmap(QPixmap(u"img/logo2.png"))
         self.label_5.setScaledContents(True)
 
         self.horizontalLayout_7.addWidget(self.label_5)
@@ -641,7 +896,7 @@ class Ui_MainWindow(object):
         self.label_4 = QLabel(self.frame_4)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setMaximumSize(QSize(16777215, 111))
-        self.label_4.setPixmap(QPixmap(u"NOVO_CLIENTE.png"))
+        self.label_4.setPixmap(QPixmap(u"img/NOVO_CLIENTE.png"))
         self.label_4.setScaledContents(True)
 
         self.horizontalLayout_7.addWidget(self.label_4)
@@ -651,8 +906,8 @@ class Ui_MainWindow(object):
 
         self.frame_3 = QFrame(self.cadastro)
         self.frame_3.setObjectName(u"frame_3")
-        sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
-        self.frame_3.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy2)
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.verticalLayout_11 = QVBoxLayout(self.frame_3)
@@ -1109,9 +1364,9 @@ class Ui_MainWindow(object):
 
         self.label_9 = QLabel(self.frame_6)
         self.label_9.setObjectName(u"label_9")
-        font7 = QFont()
-        font7.setPointSize(28)
-        self.label_9.setFont(font7)
+        font8 = QFont()
+        font8.setPointSize(28)
+        self.label_9.setFont(font8)
         self.label_9.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
 "border-radius: 8px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -1157,8 +1412,9 @@ class Ui_MainWindow(object):
         self.label_6.setMaximumSize(QSize(471, 241))
         self.label_6.setSizeIncrement(QSize(0, 0))
         self.label_6.setBaseSize(QSize(271, 471))
-        self.label_6.setPixmap(QPixmap(u"CONTATO_LOJA.jpeg"))
+        self.label_6.setPixmap(QPixmap(u"img/CONTATO_LOJA.jpeg"))
         self.label_6.setScaledContents(True)
+        self.label_6.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_10.addWidget(self.label_6)
 
@@ -1197,7 +1453,7 @@ class Ui_MainWindow(object):
         self.label_35.setObjectName(u"label_35")
         self.label_35.setMinimumSize(QSize(391, 371))
         self.label_35.setMaximumSize(QSize(391, 371))
-        self.label_35.setPixmap(QPixmap(u"logo2.png"))
+        self.label_35.setPixmap(QPixmap(u"img/logo2.png"))
         self.label_35.setScaledContents(True)
 
         self.horizontalLayout_16.addWidget(self.label_35)
@@ -1206,11 +1462,11 @@ class Ui_MainWindow(object):
         self.label_36.setObjectName(u"label_36")
         self.label_36.setMinimumSize(QSize(481, 101))
         self.label_36.setMaximumSize(QSize(481, 101))
-        font8 = QFont()
-        font8.setFamily(u"Century")
-        font8.setPointSize(42)
-        self.label_36.setFont(font8)
-        self.label_36.setPixmap(QPixmap(u"novo_usuario.png"))
+        font9 = QFont()
+        font9.setFamily(u"Century")
+        font9.setPointSize(42)
+        self.label_36.setFont(font9)
+        self.label_36.setPixmap(QPixmap(u"img/novo_usuario.png"))
         self.label_36.setScaledContents(True)
         self.label_36.setAlignment(Qt.AlignCenter)
 
@@ -1232,11 +1488,8 @@ class Ui_MainWindow(object):
 
         self.frame_13 = QFrame(self.frame_12)
         self.frame_13.setObjectName(u"frame_13")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.frame_13.sizePolicy().hasHeightForWidth())
-        self.frame_13.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.frame_13.sizePolicy().hasHeightForWidth())
+        self.frame_13.setSizePolicy(sizePolicy1)
         self.frame_13.setStyleSheet(u"border-width: 2px;\n"
 "border-color: black;\n"
 "border-style: solid;\n"
@@ -1287,6 +1540,8 @@ class Ui_MainWindow(object):
         self.cb_users.setMinimumSize(QSize(151, 20))
         self.cb_users.setMaximumSize(QSize(151, 20))
         self.cb_users.setFont(font)
+        self.cb_users.setLayoutDirection(Qt.LeftToRight)
+        self.cb_users.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
         self.verticalLayout_33.addWidget(self.cb_users)
 
@@ -1328,8 +1583,8 @@ class Ui_MainWindow(object):
 
         self.frame_14 = QFrame(self.frame_12)
         self.frame_14.setObjectName(u"frame_14")
-        sizePolicy2.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
-        self.frame_14.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
+        self.frame_14.setSizePolicy(sizePolicy1)
         self.frame_14.setStyleSheet(u"border-width: 2px;\n"
 "border-color: black;\n"
 "border-style: solid;\n"
@@ -1423,15 +1678,32 @@ class Ui_MainWindow(object):
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Filtro Nome", None))
         self.le_filtro_clientes.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o nome para pesquisar...", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"CLIENTES", None))
-        self.bt_modifica_clientes.setText(QCoreApplication.translate("MainWindow", u"MODIFICAR", None))
-        self.bt_exclui_clientes.setText(QCoreApplication.translate("MainWindow", u"EXCLUIR", None))
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"FILTRO PRODUTO", None))
-        self.le_filtro_produtos.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o produto para pesquisar...", None))
+        self.le_filtro_produto.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o produto para pesquisar...", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
+        self.label_41.setText(QCoreApplication.translate("MainWindow", u"FILTRO PRODUTO SAIDA", None))
+        self.le_filtro_produto_saida.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o produto para pesquisar...", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
-        self.bt_importar.setText(QCoreApplication.translate("MainWindow", u"IMPORTAR", None))
-        self.bt_gerar_saida.setText(QCoreApplication.translate("MainWindow", u"GERAR SA\u00cdDA", None))
+        self.label_48.setText(QCoreApplication.translate("MainWindow", u"ID PRODUTO", None))
+        self.label_42.setText(QCoreApplication.translate("MainWindow", u"PRODUTO", None))
+        self.label_43.setText(QCoreApplication.translate("MainWindow", u"QUANTIDADE", None))
+        self.comboBox_un.setItemText(0, QCoreApplication.translate("MainWindow", u"KG", None))
+        self.comboBox_un.setItemText(1, QCoreApplication.translate("MainWindow", u"G", None))
+        self.comboBox_un.setItemText(2, QCoreApplication.translate("MainWindow", u"UN", None))
+
+        self.label_44.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
+        self.label_49.setText(QCoreApplication.translate("MainWindow", u"ID PRODUTO", None))
+        self.label_45.setText(QCoreApplication.translate("MainWindow", u"PRODUTO", None))
+        self.label_46.setText(QCoreApplication.translate("MainWindow", u"QUANTIDADE", None))
+        self.comboBox_un_saida.setItemText(0, QCoreApplication.translate("MainWindow", u"KG", None))
+        self.comboBox_un_saida.setItemText(1, QCoreApplication.translate("MainWindow", u"G", None))
+        self.comboBox_un_saida.setItemText(2, QCoreApplication.translate("MainWindow", u"UN", None))
+
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
         self.bt_extorno.setText(QCoreApplication.translate("MainWindow", u"EXTORNO", None))
+        self.bt_importar.setText(QCoreApplication.translate("MainWindow", u"IMPORTAR", None))
+        self.bt_alterar.setText(QCoreApplication.translate("MainWindow", u"ALTERAR", None))
+        self.bt_gerar_saida.setText(QCoreApplication.translate("MainWindow", u"GERAR SA\u00cdDA", None))
         self.label_5.setText("")
         self.label_4.setText("")
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Nome", None))

@@ -258,7 +258,7 @@ QPushButton:hover{
     <item>
      <widget class="QStackedWidget" name="StackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="home">
        <layout class="QVBoxLayout" name="verticalLayout_31">
@@ -270,7 +270,7 @@ QPushButton:hover{
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>logo2.png</pixmap>
+             <pixmap>img/logo2.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -448,130 +448,12 @@ border-color: black;
 border-style: solid;
 display: inline-block;</string>
                 </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::DoubleClicked</set>
+                </property>
                </widget>
               </item>
              </layout>
-            </item>
-            <item>
-             <widget class="QFrame" name="frame_10">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_26">
-               <item>
-                <widget class="QPushButton" name="bt_modifica_clientes">
-                 <property name="minimumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton{
-
-background-color: rgb(219, 57, 62);
-border-radius: 8px;
-color: rgb(255, 255, 255);
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;
-}
-
-QPushButton:hover{
-
-	
-	background-color: rgb(77, 11, 17);
-	
-	color: rgb(255, 255, 255);
-
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>MODIFICAR</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="bt_exclui_clientes">
-                 <property name="minimumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton{
-
-background-color: rgb(219, 57, 62);
-border-radius: 8px;
-color: rgb(255, 255, 255);
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;
-}
-
-QPushButton:hover{
-
-	
-	background-color: rgb(77, 11, 17);
-	
-	color: rgb(255, 255, 255);
-
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>EXCLUIR</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </widget>
             </item>
            </layout>
           </item>
@@ -580,251 +462,697 @@ QPushButton:hover{
        </layout>
       </widget>
       <widget class="QWidget" name="estoque">
-       <layout class="QVBoxLayout" name="verticalLayout_28">
+       <layout class="QVBoxLayout" name="verticalLayout_34">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_20">
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <layout class="QVBoxLayout" name="verticalLayout_26">
             <item>
-             <widget class="QLabel" name="label_40">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(166, 23, 38);
-border-radius: 8px;
-color: rgb(255, 255, 255);
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;</string>
-              </property>
-              <property name="text">
-               <string>FILTRO PRODUTO</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="le_filtro_produtos">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>21</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border-radius: 8px;
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;</string>
-              </property>
-              <property name="placeholderText">
-               <string>digite o produto para pesquisar...</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="font">
-                   <font>
-                    <pointsize>15</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(166, 23, 38);
+               <widget class="QLabel" name="label_40">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(166, 23, 38);
 border-radius: 8px;
 color: rgb(255, 255, 255);
 border-width: 2px;
 border-color: black;
 border-style: solid;
 display: inline-block;</string>
-                  </property>
-                  <property name="text">
-                   <string>ESTOQUE</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QTableView" name="tv_estoque">
-                  <property name="styleSheet">
-                   <string notr="true">border-radius: 8px;
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+                </property>
+                <property name="text">
+                 <string>FILTRO PRODUTO</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="font">
-                   <font>
-                    <pointsize>15</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(166, 23, 38);
-border-radius: 8px;
-color: rgb(255, 255, 255);
+               <widget class="QLineEdit" name="le_filtro_produto">
+                <property name="styleSheet">
+                 <string notr="true">border-radius: 8px;
 border-width: 2px;
 border-color: black;
 border-style: solid;
 display: inline-block;</string>
-                  </property>
-                  <property name="text">
-                   <string>SAÍDA</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QTableView" name="tv_saida">
-                  <property name="styleSheet">
-                   <string notr="true">border-radius: 8px;
-border-width: 2px;
-border-color: black;
-border-style: solid;
-display: inline-block;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+                </property>
+                <property name="placeholderText">
+                 <string>digite o produto para pesquisar...</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
             <item>
-             <widget class="QFrame" name="frame_2">
+             <layout class="QVBoxLayout" name="verticalLayout_20">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <pointsize>15</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="text">
+                 <string>ESTOQUE</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableView" name="tv_estoque">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor" stdset="0">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-radius: 8px;
+border-width: 1px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <item>
+               <widget class="QLabel" name="label_41">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="text">
+                 <string>FILTRO PRODUTO SAIDA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_filtro_produto_saida">
+                <property name="styleSheet">
+                 <string notr="true">border-radius: 8px;
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="placeholderText">
+                 <string>digite o produto para pesquisar...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>15</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="text">
+                 <string>SAÍDA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableView" name="tv_saida">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor" stdset="0">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-radius: 8px;
+border-width: 1px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="textElideMode">
+                 <enum>Qt::ElideMiddle</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_28">
+            <item>
+             <widget class="QFrame" name="frame_15">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius: 8px;
+border-width: 1px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_3">
+              <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
-                <widget class="QPushButton" name="bt_importar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
+                <widget class="QLabel" name="label_48">
                  <property name="maximumSize">
                   <size>
-                   <width>121</width>
-                   <height>31</height>
+                   <width>16777215</width>
+                   <height>20</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>12</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
                   </font>
                  </property>
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
                  <property name="styleSheet">
-                  <string notr="true">QPushButton{
-
-background-color: rgb(219, 57, 62);
+                  <string notr="true">background-color: rgb(166, 23, 38);
 border-radius: 8px;
 color: rgb(255, 255, 255);
 border-width: 2px;
 border-color: black;
 border-style: solid;
-display: inline-block;
-}
-
-QPushButton:hover{
-
-	
-	background-color: rgb(77, 11, 17);
-	
-	color: rgb(255, 255, 255);
-
-}</string>
+display: inline-block;</string>
                  </property>
                  <property name="text">
-                  <string>IMPORTAR</string>
+                  <string>ID PRODUTO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="bt_gerar_saida">
-                 <property name="minimumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>121</width>
-                   <height>31</height>
-                  </size>
-                 </property>
+                <widget class="QLineEdit" name="le_ID_produto">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_42">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QPushButton{
-
-background-color: rgb(219, 57, 62);
+                  <string notr="true">background-color: rgb(166, 23, 38);
 border-radius: 8px;
 color: rgb(255, 255, 255);
 border-width: 2px;
 border-color: black;
 border-style: solid;
-display: inline-block;
-}
-
-QPushButton:hover{
-
-	
-	background-color: rgb(77, 11, 17);
-	
-	color: rgb(255, 255, 255);
-
-}</string>
+display: inline-block;</string>
                  </property>
                  <property name="text">
-                  <string>GERAR SAÍDA</string>
+                  <string>PRODUTO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
                <item>
+                <widget class="QLineEdit" name="le_produto">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <property name="spacing">
+                  <number>6</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_43">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>22</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                   </property>
+                   <property name="text">
+                    <string>QUANTIDADE</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_un">
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>KG</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>G</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>UN</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_quantidade">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_44">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                 </property>
+                 <property name="text">
+                  <string>VALOR</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_valor">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_16">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius: 8px;
+border-width: 1px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <widget class="QLabel" name="label_49">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                 </property>
+                 <property name="text">
+                  <string>ID PRODUTO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_ID_produto_saida">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_45">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                 </property>
+                 <property name="text">
+                  <string>PRODUTO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_produto_saida">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_18">
+                 <item>
+                  <widget class="QLabel" name="label_46">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>22</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                   </property>
+                   <property name="text">
+                    <string>QUANTIDADE</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_un_saida">
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>KG</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>G</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>UN</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_quantidade_saida">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_47">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                 </property>
+                 <property name="text">
+                  <string>VALOR</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_valor_saida">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                 <widget class="QPushButton" name="bt_extorno">
                  <property name="minimumSize">
                   <size>
@@ -872,23 +1200,183 @@ QPushButton:hover{
                  </property>
                 </widget>
                </item>
-               <item>
-                <spacer name="verticalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QPushButton" name="bt_importar">
+               <property name="minimumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+
+background-color: rgb(219, 57, 62);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+}
+
+QPushButton:hover{
+
+	
+	background-color: rgb(77, 11, 17);
+	
+	color: rgb(255, 255, 255);
+
+}</string>
+               </property>
+               <property name="text">
+                <string>IMPORTAR</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bt_alterar">
+               <property name="minimumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+
+background-color: rgb(219, 57, 62);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+}
+
+QPushButton:hover{
+
+	
+	background-color: rgb(77, 11, 17);
+	
+	color: rgb(255, 255, 255);
+
+}</string>
+               </property>
+               <property name="text">
+                <string>ALTERAR</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bt_gerar_saida">
+               <property name="minimumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+
+background-color: rgb(219, 57, 62);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+}
+
+QPushButton:hover{
+
+	
+	background-color: rgb(77, 11, 17);
+	
+	color: rgb(255, 255, 255);
+
+}</string>
+               </property>
+               <property name="text">
+                <string>GERAR SAÍDA</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </item>
@@ -929,7 +1417,7 @@ QPushButton:hover{
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>logo2.png</pixmap>
+              <pixmap>img/logo2.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -948,7 +1436,7 @@ QPushButton:hover{
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>NOVO_CLIENTE.png</pixmap>
+              <pixmap>img/NOVO_CLIENTE.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -1805,10 +2293,13 @@ display: inline-block;</string>
                <string/>
               </property>
               <property name="pixmap">
-               <pixmap>CONTATO_LOJA.jpeg</pixmap>
+               <pixmap>img/CONTATO_LOJA.jpeg</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -1867,7 +2358,7 @@ display: inline-block;</string>
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>logo2.png</pixmap>
+              <pixmap>img/logo2.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -1898,7 +2389,7 @@ display: inline-block;</string>
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>novo_usuario.png</pixmap>
+              <pixmap>img/novo_usuario.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>

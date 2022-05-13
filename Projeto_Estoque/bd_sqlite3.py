@@ -34,7 +34,6 @@ class DataBase():
             cursor = self.conection.cursor()
             cursor.execute('''
             CREATE TABLE IF NOT EXISTS clientes(
-            ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
             NOME TEXT NOT NULL,
             DATA TEXT NULL,
             EMAIL TEXT NULL,
@@ -56,7 +55,27 @@ class DataBase():
             cursor = self.conection.cursor()
             cursor.execute('''
             CREATE TABLE IF NOT EXISTS estoque(
-            ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+            ID_PRODUTO INTEGER PRIMARY KEY AUTOINCREMENT,
+            PRODUTO TEXT NOT NULL,
+            VALOR TEXT NOT NULL,
+            VALOR_TOTAL TEXT NOT NULL,
+            UN TEXT NULL,
+            KG TEXT NULL,
+            G TEXT NULL,
+            DATA TEXT NOT NULL,
+            HORA TEXT NOT NULL,
+            USER TEXT NOT NULL
+            );
+            ''')
+        except AttributeError:
+            print('Erro ao criar a tabela estoque')
+
+    def create_table_saida(self):
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS saida(
+            ID_PRODUTO TEXT NOT NULL,
             PRODUTO TEXT NOT NULL,
             VALOR TEXT NOT NULL,
             VALOR_TOTAL TEXT NOT NULL,
@@ -75,10 +94,34 @@ class DataBase():
         d = datetime.now()
         data = d.strftime('%d/%m/%y')
         hora = d.strftime('%H:%M')
+        valor = f'{float(valor):.2f}'
         try:
             cursor = self.conection.cursor()
             cursor.execute(f'''
-                INSERT INTO estoque(produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{produto.strip().title()}','{valor}','{valor_total}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+                INSERT INTO estoque(produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{produto.strip().title()}','R${str(valor).replace('.',',')}','R${valor_total}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+            ''')
+            self.conection.commit()
+        except AttributeError:
+            print('faça a conexão')
+
+    def update_produto(self,id_produto,produto,user, valor,valor_total, un='--', kg='--', g='--'):
+        d = datetime.now()
+        data = d.strftime('%d/%m/%y')
+        hora = d.strftime('%H:%M')
+        cursor = self.conection.cursor()
+        cursor.execute(f'''
+                        UPDATE estoque set produto="{produto.strip().title()}", valor='R${valor}',valor_total='R${valor_total}',un='{un}',kg='{kg}',g='{g}',data='{data}',hora='{hora}',user='{user}' where id_produto = {id_produto};
+                    ''')
+        self.conection.commit()
+
+    def insert_saida(self,id_produto,produto,user, valor,valor_total, un='--', kg='--', g='--'):
+        d = datetime.now()
+        data = d.strftime('%d/%m/%y')
+        hora = d.strftime('%H:%M')
+        try:
+            cursor = self.conection.cursor()
+            cursor.execute(f'''
+                INSERT INTO saida(id_produto,produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${valor}','R${valor_total}','{un}','{kg}','{g}','{data}','{hora}','{user}');
             ''')
             self.conection.commit()
         except AttributeError:
@@ -138,12 +181,11 @@ class DataBase():
             for linha in cursor.fetchall():
                 if linha[0]== login and linha[2]== senha and linha[3] == 'admin':
                     return 'admin'
-                else:
-                    continue
-            return 'user'
-
-         except Exception:
+                elif linha[0]== login and linha[2]== senha and linha[3] == 'user':
+                    return 'user'
             return False
+         except:
+             print('faça a conexao')
 
     def check_login_exists(self,login,senha):
         try:
@@ -191,8 +233,9 @@ if __name__ == '__main__':
     db.create_table_usuarios()
     db.create_table_clientes()
     db.create_table_estoque()
+    db.create_table_saida()
     db.insert_novo_usuario('douglas','doug_avs','123','admin')
-    db.insert_novo_usuario('gabriela','gabs','123',)
+    db.insert_novo_usuario('gabriela','gabs','123')
     # print(db.db_check_user('douglas','123'))
     # print(db.db_check_user('gabriela','123'))
     # db.cria_excel()
