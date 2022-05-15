@@ -464,7 +464,7 @@ display: inline-block;</string>
       <widget class="QWidget" name="estoque">
        <layout class="QVBoxLayout" name="verticalLayout_34">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_26">
             <item>
@@ -514,10 +514,48 @@ display: inline-block;</string>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <item>
-               <widget class="QLabel" name="label_3">
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                  </property>
+                  <property name="text">
+                   <string>ESTOQUE</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLabel" name="label_estoque">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
-                  <pointsize>15</pointsize>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                  <underline>false</underline>
+                  <strikeout>false</strikeout>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -530,10 +568,13 @@ border-style: solid;
 display: inline-block;</string>
                 </property>
                 <property name="text">
-                 <string>ESTOQUE</string>
+                 <string>VALOR TOTAL EM ESTOQUE</string>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="textFormat">
+                 <enum>Qt::PlainText</enum>
+                </property>
+                <property name="scaledContents">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -610,10 +651,46 @@ display: inline-block;</string>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QLabel" name="label_2">
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                  </property>
+                  <property name="text">
+                   <string>SAÍDA</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QLabel" name="label_saida">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
-                  <pointsize>15</pointsize>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -626,10 +703,7 @@ border-style: solid;
 display: inline-block;</string>
                 </property>
                 <property name="text">
-                 <string>SAÍDA</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <string>VALOR TOTAL DE SAIDA</string>
                 </property>
                </widget>
               </item>
@@ -1260,7 +1334,7 @@ QPushButton:hover{
 }</string>
                </property>
                <property name="text">
-                <string>IMPORTAR</string>
+                <string>CADASTRAR</string>
                </property>
               </widget>
              </item>
@@ -1310,7 +1384,7 @@ QPushButton:hover{
 }</string>
                </property>
                <property name="text">
-                <string>ALTERAR</string>
+                <string>ADICIONAR</string>
                </property>
               </widget>
              </item>
@@ -1359,6 +1433,54 @@ QPushButton:hover{
                </property>
                <property name="text">
                 <string>GERAR SAÍDA</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bt_deletar_produto">
+               <property name="minimumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+
+background-color: rgb(219, 57, 62);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;
+}
+
+QPushButton:hover{
+
+	
+	background-color: rgb(77, 11, 17);
+	
+	color: rgb(255, 255, 255);
+
+}</string>
+               </property>
+               <property name="text">
+                <string>DELETAR</string>
                </property>
               </widget>
              </item>

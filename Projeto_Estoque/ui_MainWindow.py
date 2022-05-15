@@ -341,8 +341,8 @@ class Ui_MainWindow(object):
         self.estoque.setObjectName(u"estoque")
         self.verticalLayout_34 = QVBoxLayout(self.estoque)
         self.verticalLayout_34.setObjectName(u"verticalLayout_34")
-        self.horizontalLayout_19 = QHBoxLayout()
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
         self.verticalLayout_26 = QVBoxLayout()
         self.verticalLayout_26.setObjectName(u"verticalLayout_26")
         self.horizontalLayout_17 = QHBoxLayout()
@@ -376,6 +376,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20 = QVBoxLayout()
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
         self.label_3 = QLabel(self.estoque)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setFont(font5)
@@ -388,15 +390,44 @@ class Ui_MainWindow(object):
 "display: inline-block;")
         self.label_3.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_20.addWidget(self.label_3)
+        self.horizontalLayout_20.addWidget(self.label_3)
 
-        self.tv_estoque = QTableView(self.estoque)
-        self.tv_estoque.setObjectName(u"tv_estoque")
+
+        self.verticalLayout_20.addLayout(self.horizontalLayout_20)
+
+        self.label_estoque = QLabel(self.estoque)
+        self.label_estoque.setObjectName(u"label_estoque")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_estoque.sizePolicy().hasHeightForWidth())
+        self.label_estoque.setSizePolicy(sizePolicy1)
         font6 = QFont()
         font6.setPointSize(12)
         font6.setBold(True)
+        font6.setUnderline(False)
         font6.setWeight(75)
-        self.tv_estoque.setFont(font6)
+        font6.setStrikeOut(False)
+        self.label_estoque.setFont(font6)
+        self.label_estoque.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_estoque.setTextFormat(Qt.PlainText)
+        self.label_estoque.setScaledContents(False)
+
+        self.verticalLayout_20.addWidget(self.label_estoque, 0, Qt.AlignHCenter)
+
+        self.tv_estoque = QTableView(self.estoque)
+        self.tv_estoque.setObjectName(u"tv_estoque")
+        font7 = QFont()
+        font7.setPointSize(12)
+        font7.setBold(True)
+        font7.setWeight(75)
+        self.tv_estoque.setFont(font7)
         self.tv_estoque.viewport().setProperty("cursor", QCursor(Qt.PointingHandCursor))
         self.tv_estoque.setStyleSheet(u"border-radius: 8px;\n"
 "border-width: 1px;\n"
@@ -441,6 +472,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
         self.label_2 = QLabel(self.estoque)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setFont(font5)
@@ -453,11 +486,29 @@ class Ui_MainWindow(object):
 "display: inline-block;")
         self.label_2.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_4.addWidget(self.label_2)
+        self.horizontalLayout_19.addWidget(self.label_2)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_19)
+
+        self.label_saida = QLabel(self.estoque)
+        self.label_saida.setObjectName(u"label_saida")
+        sizePolicy1.setHeightForWidth(self.label_saida.sizePolicy().hasHeightForWidth())
+        self.label_saida.setSizePolicy(sizePolicy1)
+        self.label_saida.setFont(font7)
+        self.label_saida.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+
+        self.verticalLayout_4.addWidget(self.label_saida, 0, Qt.AlignHCenter)
 
         self.tv_saida = QTableView(self.estoque)
         self.tv_saida.setObjectName(u"tv_saida")
-        self.tv_saida.setFont(font6)
+        self.tv_saida.setFont(font7)
         self.tv_saida.viewport().setProperty("cursor", QCursor(Qt.PointingHandCursor))
         self.tv_saida.setStyleSheet(u"border-radius: 8px;\n"
 "border-width: 1px;\n"
@@ -473,15 +524,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_26.addLayout(self.verticalLayout_4)
 
 
-        self.horizontalLayout_19.addLayout(self.verticalLayout_26)
+        self.horizontalLayout_21.addLayout(self.verticalLayout_26)
 
         self.verticalLayout_28 = QVBoxLayout()
         self.verticalLayout_28.setObjectName(u"verticalLayout_28")
         self.frame_15 = QFrame(self.estoque)
         self.frame_15.setObjectName(u"frame_15")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.frame_15.sizePolicy().hasHeightForWidth())
         self.frame_15.setSizePolicy(sizePolicy1)
         self.frame_15.setStyleSheet(u"border-radius: 8px;\n"
@@ -765,7 +813,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_28.addWidget(self.frame_16)
 
 
-        self.horizontalLayout_19.addLayout(self.verticalLayout_28)
+        self.horizontalLayout_21.addLayout(self.verticalLayout_28)
 
         self.frame_2 = QFrame(self.estoque)
         self.frame_2.setObjectName(u"frame_2")
@@ -777,11 +825,11 @@ class Ui_MainWindow(object):
         self.bt_importar.setObjectName(u"bt_importar")
         self.bt_importar.setMinimumSize(QSize(121, 31))
         self.bt_importar.setMaximumSize(QSize(121, 31))
-        font7 = QFont()
-        font7.setPointSize(12)
-        font7.setBold(False)
-        font7.setWeight(50)
-        self.bt_importar.setFont(font7)
+        font8 = QFont()
+        font8.setPointSize(12)
+        font8.setBold(False)
+        font8.setWeight(50)
+        self.bt_importar.setFont(font8)
         self.bt_importar.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_importar.setStyleSheet(u"QPushButton{\n"
 "\n"
@@ -809,7 +857,7 @@ class Ui_MainWindow(object):
         self.bt_alterar.setObjectName(u"bt_alterar")
         self.bt_alterar.setMinimumSize(QSize(121, 31))
         self.bt_alterar.setMaximumSize(QSize(121, 31))
-        self.bt_alterar.setFont(font7)
+        self.bt_alterar.setFont(font8)
         self.bt_alterar.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_alterar.setStyleSheet(u"QPushButton{\n"
 "\n"
@@ -861,15 +909,43 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.bt_gerar_saida)
 
+        self.bt_deletar_produto = QPushButton(self.frame_2)
+        self.bt_deletar_produto.setObjectName(u"bt_deletar_produto")
+        self.bt_deletar_produto.setMinimumSize(QSize(121, 31))
+        self.bt_deletar_produto.setMaximumSize(QSize(121, 31))
+        self.bt_deletar_produto.setFont(font)
+        self.bt_deletar_produto.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_deletar_produto.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background-color: rgb(219, 57, 62);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	\n"
+"	background-color: rgb(77, 11, 17);\n"
+"	\n"
+"	color: rgb(255, 255, 255);\n"
+"\n"
+"}")
+
+        self.verticalLayout_3.addWidget(self.bt_deletar_produto)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
 
-        self.horizontalLayout_19.addWidget(self.frame_2)
+        self.horizontalLayout_21.addWidget(self.frame_2)
 
 
-        self.verticalLayout_34.addLayout(self.horizontalLayout_19)
+        self.verticalLayout_34.addLayout(self.horizontalLayout_21)
 
         self.StackedWidget.addWidget(self.estoque)
         self.cadastro = QWidget()
@@ -1364,9 +1440,9 @@ class Ui_MainWindow(object):
 
         self.label_9 = QLabel(self.frame_6)
         self.label_9.setObjectName(u"label_9")
-        font8 = QFont()
-        font8.setPointSize(28)
-        self.label_9.setFont(font8)
+        font9 = QFont()
+        font9.setPointSize(28)
+        self.label_9.setFont(font9)
         self.label_9.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
 "border-radius: 8px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -1462,10 +1538,10 @@ class Ui_MainWindow(object):
         self.label_36.setObjectName(u"label_36")
         self.label_36.setMinimumSize(QSize(481, 101))
         self.label_36.setMaximumSize(QSize(481, 101))
-        font9 = QFont()
-        font9.setFamily(u"Century")
-        font9.setPointSize(42)
-        self.label_36.setFont(font9)
+        font10 = QFont()
+        font10.setFamily(u"Century")
+        font10.setPointSize(42)
+        self.label_36.setFont(font10)
         self.label_36.setPixmap(QPixmap(u"img/novo_usuario.png"))
         self.label_36.setScaledContents(True)
         self.label_36.setAlignment(Qt.AlignCenter)
@@ -1681,9 +1757,11 @@ class Ui_MainWindow(object):
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"FILTRO PRODUTO", None))
         self.le_filtro_produto.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o produto para pesquisar...", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
+        self.label_estoque.setText(QCoreApplication.translate("MainWindow", u"VALOR TOTAL EM ESTOQUE", None))
         self.label_41.setText(QCoreApplication.translate("MainWindow", u"FILTRO PRODUTO SAIDA", None))
         self.le_filtro_produto_saida.setPlaceholderText(QCoreApplication.translate("MainWindow", u"digite o produto para pesquisar...", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
+        self.label_saida.setText(QCoreApplication.translate("MainWindow", u"VALOR TOTAL DE SAIDA", None))
         self.label_48.setText(QCoreApplication.translate("MainWindow", u"ID PRODUTO", None))
         self.label_42.setText(QCoreApplication.translate("MainWindow", u"PRODUTO", None))
         self.label_43.setText(QCoreApplication.translate("MainWindow", u"QUANTIDADE", None))
@@ -1701,9 +1779,10 @@ class Ui_MainWindow(object):
 
         self.label_47.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
         self.bt_extorno.setText(QCoreApplication.translate("MainWindow", u"EXTORNO", None))
-        self.bt_importar.setText(QCoreApplication.translate("MainWindow", u"IMPORTAR", None))
-        self.bt_alterar.setText(QCoreApplication.translate("MainWindow", u"ALTERAR", None))
+        self.bt_importar.setText(QCoreApplication.translate("MainWindow", u"CADASTRAR", None))
+        self.bt_alterar.setText(QCoreApplication.translate("MainWindow", u"ADICIONAR", None))
         self.bt_gerar_saida.setText(QCoreApplication.translate("MainWindow", u"GERAR SA\u00cdDA", None))
+        self.bt_deletar_produto.setText(QCoreApplication.translate("MainWindow", u"DELETAR", None))
         self.label_5.setText("")
         self.label_4.setText("")
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Nome", None))

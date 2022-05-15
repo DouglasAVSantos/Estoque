@@ -121,7 +121,7 @@ class DataBase():
         try:
             cursor = self.conection.cursor()
             cursor.execute(f'''
-                INSERT INTO saida(id_produto,produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${valor}','R${valor_total}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+                INSERT INTO saida(id_produto,produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${str(valor).replace('.',',')}','R${str(valor_total).replace('.',',')}','{un}','{kg}','{g}','{data}','{hora}','{user}');
             ''')
             self.conection.commit()
         except AttributeError:

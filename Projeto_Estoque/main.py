@@ -1,17 +1,15 @@
-import sqlite3
 import sys
+from datetime import datetime
 
+import requests
 from PySide2.QtCore import Qt
+from PySide2.QtSql import QSqlDatabase, QSqlTableModel
+from PySide2.QtWidgets import (QApplication, QMainWindow, QWidget, QMessageBox)
 
 from bd_sqlite3 import DataBase
-from PySide2.QtWidgets import (QApplication, QMainWindow, QWidget, QMessageBox, QTableWidgetItem, QDialog, QInputDialog)
-from PySide2.QtSql import QSqlDatabase, QSqlTableModel
-from ui_login import Ui_Login
 from ui_MainWindow import Ui_MainWindow
-from Produtos_ui import Ui_Produtos
+from ui_login import Ui_Login
 import pandas as pd
-import requests
-import json
 
 #instancia do Login
 class Login(QWidget, Ui_Login):
@@ -37,6 +35,7 @@ class Login(QWidget, Ui_Login):
             self.senha = self.lineEdit_senha.text()
             self.w = MainWindow(self.login,self.senha)
             self.w.bt_novo_usuario.hide()
+            self.w.bt_deletar_produto.hide()
             self.w.show()
             self.close()
             db.close_conecta()
@@ -83,19 +82,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.reset_tables()
 
         self.tv_estoque.doubleClicked.connect(self.get_produto_via_table)
-        # self.bt_gerar_saida.clicked.connect(self.gerar_saida)
+        self.bt_gerar_saida.clicked.connect(self.gerar_saida)
+        self.bt_alterar.clicked.connect(self.adicionar_produto)
         self.le_valor.textChanged.connect(self.mascara_valor)
         self.le_quantidade.textChanged.connect(self.mascara_quantidade)
         self.le_valor.textEdited.connect(self.clear_id)
-        self.le_quantidade.textEdited.connect(self.clear_id)
         self.le_produto.textEdited.connect(self.clear_id)
+        self.comboBox_un.currentIndexChanged.connect(self.clear_id)
+        self.bt_deletar_produto.clicked.connect(self.delete_produto)
 
         self.le_valor_saida.setReadOnly(True)
         self.le_produto_saida.setReadOnly(True)
         self.le_ID_produto_saida.setReadOnly(True)
         self.le_ID_produto.setReadOnly(True)
         self.comboBox_un_saida.setEnabled(False)
+        self.alimenta_label_valor()
 
+    def alimenta_label_valor(self):
+        db = DataBase()
+        db.conecta()
+        result = pd.read_sql('select * from estoque',db.conection)
+        result1 = pd.read_sql('select * from saida',db.conection)
+        lista_valores = [float(str(valor).replace("R$","").replace(",",".")) for valor in result['VALOR_TOTAL']]
+        lista_valores1 = [float(str(valor).replace("R$","").replace(",",".")) for valor in result1['VALOR_TOTAL']]
+        valor = f'{sum(lista_valores):.2f}'
+        valor1 = f'{sum(lista_valores1):.2f}'
+        self.label_estoque.setText(f'VALOR TOTAL : R$ {valor.replace(".",",")}')
+        self.label_saida.setText(f'VALOR TOTAL : R$ {valor1.replace(".",",")}')
+
+        # lista_valores = [valor for valor in result['VALOR_TOTAL']]
+        # print(lista_valores)
 
     def mascara_valor(self,s):
         l = [i for i in s if i.isdigit() or i == ',' or i == '.']
@@ -114,8 +130,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def clear_id(self):
         self.le_ID_produto.clear()
 
-
-
     def get_usuario(self,login,senha):
         try:
             db = DataBase()
@@ -129,52 +143,137 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except:
             self.messagebox_critical('Usuario não encontrado','Usuario não encontrado')
 
-    def import_produto(self):
+    def delete_produto(self):
+        id_produto = self.le_ID_produto.text()
+        db = DataBase()
+        db.conecta()
+        cursor = db.conection.cursor()
+        if id_produto =='':
+            self.messagebox_critical('PRODUTO NÃO ENCONTRADO', 'DELETANDO UM PRODUTO:\n1º SELECIONE O PRODUTO NA TABELA.\n2º CLIQUE NO BOTAO DELETAR\nAVISO: "O PRODUTO SERA COMPLETAMENTE DELETADO DO ESTOQUE"')
+            db.close_conecta()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle('DELETAR PRODUTO')
+            msg.setText('TEM CERTEZA QUE DESEJA DELETAR O PRODUTO SELECIONADO?')
+            msg.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+            msg.setButtonText(QMessageBox.Yes,'SIM')
+            msg.setButtonText(QMessageBox.No,'NÃO')
+            result = msg.exec_()
+            if result == QMessageBox.Yes:
+                cursor.execute(f'delete from estoque where id_produto ="{id_produto}"')
+                db.conection.commit()
+                self.reset_tables()
+                db.close_conecta()
+            else:
+                msg.close()
+
+    def adicionar_produto(self):
+        db = DataBase()
+        db.conecta()
+        d = datetime.now()
+        data = d.strftime('%d/%m/%y')
+        hora = d.strftime('%H:%M')
+        id_produto = self.le_ID_produto.text()
         produto = self.le_produto.text()
-        user = self.usuario
-        ref = self.comboBox_un.currentText()
+        tipo = self.comboBox_un.currentText()
         quantidade = self.le_quantidade.text()
-        quantidade_int = int(quantidade)
-        valor = self.le_valor.text().replace(',', '.').replace('R','').replace('$','')
-        valor_int = float(valor)
-        valor_total = f"{valor_int * quantidade_int:.2f}".replace('.', ',')
-        valorstr = self.le_valor.text().replace(',', '.').replace('R','').replace('$','')
-        if ref == 'KG':
-            db = DataBase()
-            db.conecta()
-            db.insert_novo_produto(produto, user, valorstr, valor_total, kg=quantidade)
-            self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
-            self.reset_tables()
-            self.le_produto.setText('')
-            self.le_valor.setText('')
-            self.le_quantidade.setText('')
-            db.close_conecta()
-        elif ref == 'G':
-            db = DataBase()
-            db.conecta()
-            db.insert_novo_produto(produto, user, valorstr, valor_total, g=quantidade)
-            self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
-            self.reset_tables()
-            self.le_produto.setText('')
-            self.le_valor.setText('')
-            self.le_quantidade.setText('')
-            db.close_conecta()
-        elif ref == 'UN':
-            db = DataBase()
-            db.conecta()
-            db.insert_novo_produto(produto, user, valorstr, valor_total, un=quantidade)
-            self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
-            self.reset_tables()
-            self.le_produto.setText('')
-            self.le_valor.setText('')
-            self.le_quantidade.setText('')
-            db.close_conecta()
+        valor = float(self.le_valor.text().replace('R$','').replace(',','.'))
+        if id_produto == '':
+            self.messagebox_aviso('PRODUTO NÃO ENCONTRADO','ADICIONANDO UM PRODUTO JÁ CADASTRADO:\n1º SELECIONE O PRODUTO NA TABELA\n2º MUDE APÉNAS O CAMPO QUANTIDADE\n3º A QUANTIDADE SERA SOMADA A QUANTIDADE EM ESTOQUE')
+        elif produto =='':
+            self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO PRODUTO ESTÁ VAZIO')
+        elif quantidade =='':
+            self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO QUANTIDADE ESTÁ VAZIO')
+        elif valor =='':
+            self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO VALOR ESTÁ VAZIO')
+        else:
+            cursor = db.conection.cursor()
+            cursor.execute(f'select * from estoque where id_produto = "{id_produto}"')
+            for dado in cursor.fetchall():
+                if dado[4] != '--':
+                    quant = f'{int(str(dado[4]).replace("R$","")) + int(quantidade)}'
+                    valor_total = f'{valor*float(quant):.2f}'
+                    cursor.execute(f'update estoque set UN ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".",",")}" where id_produto = "{id_produto}";')
+                    db.conection.commit()
+                    self.messagebox_accept('PRODUTO ADICIONADO','PRODUTO ADICIONADO COM SUCESSO')
+                    self.reset_tables()
+                elif dado[5] != '--':
+                    quant = f'{int(str(dado[5]).replace("R$", "")) + int(quantidade)}'
+                    valor_total = f'{valor * float(quant):.2f}'
+                    cursor.execute(
+                        f'update estoque set KG ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".", ",")}" where id_produto = "{id_produto}";')
+                    db.conection.commit()
+                    self.messagebox_accept('PRODUTO ADICIONADO', 'PRODUTO ADICIONADO COM SUCESSO')
+                    self.reset_tables()
+                elif dado[6] != '--':
+                    quant = f'{int(str(dado[6]).replace("R$", "")) + int(quantidade)}'
+                    valor_total = f'{valor * float(quant):.2f}'
+                    cursor.execute(
+                        f'update estoque set G ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".", ",")}" where id_produto = "{id_produto}";')
+                    db.conection.commit()
+                    self.messagebox_accept('PRODUTO ADICIONADO', 'PRODUTO ADICIONADO COM SUCESSO')
+                    self.reset_tables()
+
+
+    def import_produto(self):
+        db = DataBase()
+        db.conecta()
+        produto = self.le_produto.text()
+        id_produto = self.le_ID_produto.text()
+        if id_produto != '':
+            self.messagebox_aviso('PRODUTO JA CADASTADO', 'O PRODUTO JÁ CONSTA EM ESTOQUE')
+        elif produto == '':
+            self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO PRODUTO ESTÁ VAZIO')
+        else:
+            user = self.usuario
+            ref = self.comboBox_un.currentText()
+            quantidade = self.le_quantidade.text()
+            if quantidade == '':
+                self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO QUANTIDADE ESTÁ VAZIO')
+            else:
+                quantidade_int = int(quantidade)
+                valor = self.le_valor.text().replace(',', '.').replace('R','').replace('$','')
+                if valor =='':
+                    self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO VALOR ESTÁ VAZIO')
+                else:
+                    valor_int = float(valor)
+                    valor_total = f"{valor_int * quantidade_int:.2f}".replace('.', ',')
+                    valorstr = self.le_valor.text().replace(',', '.').replace('R','').replace('$','')
+                    if ref == 'KG':
+                        db.insert_novo_produto(produto, user, valorstr, valor_total, kg=quantidade)
+                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.reset_tables()
+                        self.le_produto.setText('')
+                        self.le_valor.setText('')
+                        self.le_quantidade.setText('')
+                        db.close_conecta()
+                    elif ref == 'G':
+                        db.insert_novo_produto(produto, user, valorstr, valor_total, g=quantidade)
+                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.reset_tables()
+                        self.le_produto.setText('')
+                        self.le_valor.setText('')
+                        self.le_quantidade.setText('')
+                        db.close_conecta()
+                    elif ref == 'UN':
+                        db.insert_novo_produto(produto, user, valorstr, valor_total, un=quantidade)
+                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.reset_tables()
+                        self.le_produto.setText('')
+                        self.le_valor.setText('')
+                        self.le_quantidade.setText('')
+                        db.close_conecta()
+
+
+
 
         #FUNCAO QUE VERIFICA SE AS SENHAS INFORMADAS AO CRIAR UM NOVO USUARIO ESTAO VAZIAS OU NAO SÃO IGUAIS
 
     def get_produto_via_table(self):
         y = self.tv_estoque.currentIndex()
         x = self.model_estoque.primaryValues(y.row())
+        self.tv_estoque.selectRow(y.row())
         id_produto = x.value('ID_produto')
         db = DataBase()
         db.conecta()
@@ -204,16 +303,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             db.close_conecta()
 
-    # def gerar_saida(self):
-    #     db = DataBase()
-    #     db.conecta()
-    #     cursor = db.conection.cursor()
-    #     id_produto = self.le_ID_produto.text()
-    #     cursor.execute(f'select * from estoque where ID_PRODUTO = "{id_produto}";')
-    #     for campo in cursor.fetchall():
+    def gerar_saida(self):
+        db = DataBase()
+        db.conecta()
+        cursor = db.conection.cursor()
+        id_produto = self.le_ID_produto.text()
+        if id_produto == '':
+            self.messagebox_critical('Produto Não Encontrado', 'O Produto não foi encontrado\nSelecione o Produto a partir da lista de estoque e gere a saida')
+        else:
+            cursor.execute(f'select * from estoque where ID_PRODUTO = "{id_produto}";')
+            for v in cursor.fetchall():
+                if v[4] != '--':
+                    quantidade = v[4]
+                    tp = 'un'
+                elif v[5] != '--':
+                    quantidade = v[5]
+                    tp = 'kg'
+                elif v[6] != '--':
+                    quantidade = v[6]
+                    tp = 'g'
+                produto = v[1]
+                valor = f"{float(str(v[2]).replace('R', '').replace('$', '').replace(',', '.')):.2f}"
+                valor_total = f'{float(valor) * int(quantidade):.2f}'
+                if quantidade == self.le_quantidade.text():
+                    cursor = db.conection.cursor()
+                    if tp == 'un':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=str(quantidade))
+                        cursor.execute(
+                            f'update estoque set valor_total="R$0,00",un="0" where id_produto ="{id_produto}";')
+                    elif tp == 'kg':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=str(quantidade))
+                        cursor.execute(
+                            f'update estoque set valor_total="R$0,00",kg="0" where id_produto ="{id_produto}";')
+                    elif tp == 'g':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=str(quantidade))
+                        cursor.execute(
+                            f'update estoque set valor_total="R$0,00",g="0" where id_produto ="{id_produto}";')
 
-
-
+                    db.conection.commit()
+                    self.reset_tables()
+                elif int(self.le_quantidade.text()) > int(quantidade):
+                    self.messagebox_critical('Quantidade Inválida', 'A quantidade de saída é maior doque a quantidade em estoque')
+                    self.le_quantidade.setText(quantidade)
+                else:
+                    quantidade1 = self.le_quantidade.text()
+                    valor_total = f'{int(quantidade1)*float(valor):.2f}'
+                    quantidade_saida = f'{int(quantidade)-int(self.le_quantidade.text())}'
+                    valor_total_saida = f'{float(valor)*float(quantidade_saida):.2f}'
+                    if tp == 'un':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=quantidade1)
+                        cursor.execute(
+                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",un="{quantidade_saida}" where id_produto ="{id_produto}";')
+                    elif tp == 'kg':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=quantidade1)
+                        cursor.execute(
+                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",kg="{quantidade_saida}" where id_produto ="{id_produto}";')
+                    elif tp == 'g':
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=quantidade1)
+                        cursor.execute(
+                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",g="{quantidade_saida}" where id_produto ="{id_produto}";')
+                    db.conection.commit()
+                    self.reset_tables()
 
     def messagebox_critical(self,title, txt):
         msg = QMessageBox(self)
@@ -319,7 +469,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_estoque.setModel(self.model_estoque)
         self.model_estoque.setTable('estoque')
         self.model_estoque.select()
-        self.tv_estoque.sortByColumn(0, Qt.AscendingOrder)
+        self.tv_estoque.sortByColumn(1, Qt.AscendingOrder)
         for i in range(0, 9):
             self.tv_estoque.resizeColumnToContents(i)
 
@@ -332,7 +482,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_saida.setModel(self.model_saida)
         self.model_saida.setTable('saida')
         self.model_saida.select()
-        self.tv_saida.sortByColumn(0, Qt.AscendingOrder)
+        self.tv_saida.sortByColumn(1, Qt.AscendingOrder)
         for i in range(0, 9):
             self.tv_saida.resizeColumnToContents(i)
 
@@ -343,6 +493,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.show_table_saida()
         self.show_table_estoque()
         self.show_table_clientes()
+        self.alimenta_label_valor()
 
     def reset_table_estoque(self):
         self.StackedWidget.setCurrentWidget(self.estoque)
