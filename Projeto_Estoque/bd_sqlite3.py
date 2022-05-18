@@ -86,7 +86,8 @@ class DataBase():
             G TEXT NULL,
             DATA TEXT NOT NULL,
             HORA TEXT NOT NULL,
-            USER TEXT NOT NULL
+            USER TEXT NOT NULL,
+            COMPRADOR TEXT NOT NULL
             );
             ''')
         except AttributeError:
@@ -116,14 +117,14 @@ class DataBase():
                     ''')
         self.conection.commit()
 
-    def insert_saida(self,id_produto,produto,user, valor,valor_total,desconto=0, un='--', kg='--', g='--'):
+    def insert_saida(self,id_produto,produto,user, valor,valor_total,desconto=0,comprador='', un='--', kg='--', g='--'):
         d = datetime.now()
         data = d.strftime('%d/%m/%y')
         hora = d.strftime('%H:%M')
         try:
             cursor = self.conection.cursor()
             cursor.execute(f'''
-                INSERT INTO saida(id_produto,produto, valor,desconto,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${str(valor).replace('.',',')}','R${str(desconto).replace('.',',')}','R${str(valor_total).replace('.',',')}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+                INSERT INTO saida(id_produto,produto, valor,desconto,valor_total,un,kg,g,data,hora,user,comprador) VALUES('{id_produto}','{produto.strip().title()}','R${str(valor).replace('.',',')}','R${str(desconto).replace('.',',')}','R${str(valor_total).replace('.',',')}','{un}','{kg}','{g}','{data}','{hora}','{user}','{comprador}');
             ''')
             self.conection.commit()
         except AttributeError:

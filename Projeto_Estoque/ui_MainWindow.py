@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1225, 710)
+        MainWindow.resize(1235, 715)
         sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(2)
         sizePolicy.setVerticalStretch(0)
@@ -677,6 +677,28 @@ class Ui_MainWindow(object):
         self.le_gerar_desconto.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.le_gerar_desconto)
+
+        self.label_32 = QLabel(self.frame_15)
+        self.label_32.setObjectName(u"label_32")
+        self.label_32.setMaximumSize(QSize(16777215, 20))
+        self.label_32.setFont(font4)
+        self.label_32.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_32.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_32)
+
+        self.le_comprador = QLineEdit(self.frame_15)
+        self.le_comprador.setObjectName(u"le_comprador")
+        self.le_comprador.setFont(font)
+        self.le_comprador.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_comprador)
 
 
         self.verticalLayout_28.addWidget(self.frame_15)
@@ -1793,6 +1815,7 @@ class Ui_MainWindow(object):
 
         self.label_44.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"GERAR DESCONTO", None))
+        self.label_32.setText(QCoreApplication.translate("MainWindow", u"COMPRADOR", None))
         self.label_49.setText(QCoreApplication.translate("MainWindow", u"ID PRODUTO", None))
         self.label_45.setText(QCoreApplication.translate("MainWindow", u"PRODUTO", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"QUANTIDADE", None))

@@ -446,6 +446,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.le_valor_saida.setText('')
         self.le_ID_produto.setText('')
         self.le_ID_produto_saida.setText('')
+        self.le_comprador.setText('')
+
 
     def gerar_saida(self):
         db = DataBase()
@@ -469,20 +471,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     quantidade = v[6]
                     tp = 'g'
                 produto = v[1]
+                comprador = self.le_comprador.text().title().strip()
                 valor = f"{float(str(v[2]).replace('R', '').replace('$', '').replace(',', '.')):.2f}"
                 valor_total = f'{float(valor) * int(quantidade):.2f}'
                 if quantidade == self.le_quantidade.text():
                     cursor = db.conection.cursor()
                     if tp == 'un':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=str(quantidade))
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=str(quantidade),comprador=comprador)
                         cursor.execute(
                             f'update estoque set valor_total="R$0,00",un="0" where id_produto ="{id_produto}";')
                     elif tp == 'kg':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=str(quantidade))
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=str(quantidade),comprador=comprador)
                         cursor.execute(
                             f'update estoque set valor_total="R$0,00",kg="0" where id_produto ="{id_produto}";')
                     elif tp == 'g':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=str(quantidade))
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=str(quantidade),comprador=comprador)
                         cursor.execute(
                             f'update estoque set valor_total="R$0,00",g="0" where id_produto ="{id_produto}";')
 
@@ -498,15 +501,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     quantidade_saida = f'{int(quantidade)-int(self.le_quantidade.text())}'
                     valor_total_saida = f'{float(valor)*float(quantidade_saida):.2f}'
                     if tp == 'un':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=quantidade1,desconto=f'{float(desconto):.2f}')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=quantidade1,desconto=f'{float(desconto):.2f}',comprador=comprador)
                         cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",un="{quantidade_saida}" where id_produto ="{id_produto}";')
                         self.messagebox_accept('SAIDA GERADA', f'A SAIDA DE "{quantidade1} UNIDADES" FOI GERADA COM SUCESSO')
                     elif tp == 'kg':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=quantidade1,desconto=f'{float(desconto):.2f}')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=quantidade1,desconto=f'{float(desconto):.2f}',comprador=comprador)
                         cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",kg="{quantidade_saida}" where id_produto ="{id_produto}";')
                         self.messagebox_accept('SAIDA GERADA',f'A SAIDA DE "{quantidade1} KILOS" FOI GERADA COM SUCESSO')
                     elif tp == 'g':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=quantidade1,desconto=f'{float(desconto):.2f}')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=quantidade1,desconto=f'{float(desconto):.2f}',comprador=comprador)
                         cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",g="{quantidade_saida}" where id_produto ="{id_produto}";')
                         self.messagebox_accept('SAIDA GERADA',f'A SAIDA DE "{quantidade1} GRAMAS" FOI GERADA COM SUCESSO')
                     db.conection.commit()
