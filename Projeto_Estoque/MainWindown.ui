@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>logo2.png</normaloff>logo2.png</iconset>
+    <normaloff>img/logo2.png</normaloff>img/logo2.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">alternate-background-color: rgb(225, 225, 225);</string>
@@ -976,6 +976,50 @@ display: inline-block;</string>
                </item>
                <item>
                 <widget class="QLineEdit" name="le_valor">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_31">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(166, 23, 38);
+border-radius: 8px;
+color: rgb(255, 255, 255);
+border-width: 2px;
+border-color: black;
+border-style: solid;
+display: inline-block;</string>
+                 </property>
+                 <property name="text">
+                  <string>GERAR DESCONTO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_gerar_desconto">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>

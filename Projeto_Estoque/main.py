@@ -1,10 +1,11 @@
+import re
 import sys
 from datetime import datetime
 
 import requests
 from PySide2.QtCore import Qt
 from PySide2.QtSql import QSqlDatabase, QSqlTableModel
-from PySide2.QtWidgets import (QApplication, QMainWindow, QWidget, QMessageBox)
+from PySide2.QtWidgets import (QApplication, QMainWindow, QWidget, QMessageBox, QAbstractItemView)
 
 from bd_sqlite3 import DataBase
 from ui_MainWindow import Ui_MainWindow
@@ -36,6 +37,7 @@ class Login(QWidget, Ui_Login):
             self.w = MainWindow(self.login,self.senha)
             self.w.bt_novo_usuario.hide()
             self.w.bt_deletar_produto.hide()
+            self.w.tv_clientes.setEditTriggers(QAbstractItemView.NoEditTriggers)
             self.w.show()
             self.close()
             db.close_conecta()
@@ -61,7 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.get_usuario(self.login,self.senha)
 
 
-            #**************BOTOES DO SISTEMA*************************
+            #**************BOTOES DO MENU*************************
         self.bt_home.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.home))
         self.bt_contato.clicked.connect(lambda: self.StackedWidget.setCurrentWidget(self.Contato))
         self.bt_estoque.clicked.connect(self.reset_table_estoque)
@@ -73,18 +75,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_cadastrar.clicked.connect(self.novo_cliente)
         self.bt_cadastrar_usuario.clicked.connect(self.new_user)
         self.bt_deletar_usuario.clicked.connect(self.delete_user)
+        self.le_cep.textChanged.connect(self.mascara_cep)
+        self.le_cpf.textChanged.connect(self.mascara_cpf)
+        self.le_celular.textChanged.connect(self.mascara_telefone)
 
-        self.le_cep.textChanged.connect(self.alimenta_cep)
 
-
-        self.bt_importar.clicked.connect(self.import_produto)
 
         self.reset_tables()
-
+        ############## BOTOES DA TAELA ESTOQUE E SAIDA
+        self.bt_importar.clicked.connect(self.import_produto)
         self.tv_estoque.doubleClicked.connect(self.get_produto_via_table)
+        self.tv_saida.doubleClicked.connect(self.get_saida_via_table)
         self.bt_gerar_saida.clicked.connect(self.gerar_saida)
+        self.bt_extorno.clicked.connect(self.gerar_extorno)
         self.bt_alterar.clicked.connect(self.adicionar_produto)
         self.le_valor.textChanged.connect(self.mascara_valor)
+        self.le_gerar_desconto.textChanged.connect(self.mascara_desconto)
         self.le_quantidade.textChanged.connect(self.mascara_quantidade)
         self.le_valor.textEdited.connect(self.clear_id)
         self.le_produto.textEdited.connect(self.clear_id)
@@ -97,6 +103,98 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.le_ID_produto.setReadOnly(True)
         self.comboBox_un_saida.setEnabled(False)
         self.alimenta_label_valor()
+        ########FILTROS DAS TABELAS
+        self.le_filtro_clientes.textChanged.connect(self.filtro_table_clientes)
+        self.le_filtro_produto.textChanged.connect(self.filtro_table_estoque)
+        self.le_filtro_produto_saida.textChanged.connect(self.filtro_table_saida)
+
+    def filtro_table_clientes(self,s):
+        self.show_table_clientes()
+        s = re.sub('[\W_]+', '', s)
+        filter_str2 = f'NOME LIKE "%{s}%"'
+        self.model_clientes.setFilter(filter_str2)
+
+    def filtro_table_estoque(self,s):
+        self.show_table_clientes()
+        s = re.sub('[\W_]+', '', s)
+        filter_str2 = f'PRODUTO LIKE "%{s}%"'
+        self.model_estoque.setFilter(filter_str2)
+
+    def filtro_table_saida(self,s):
+        self.show_table_clientes()
+        s = re.sub('[\W_]+', '', s)
+        filter_str2 = f'PRODUTO LIKE "%{s}%"'
+        self.model_saida.setFilter(filter_str2)
+
+    def mascara_cpf(self,s):
+        mascara = self.le_cpf
+        mascara.setMaxLength(14)
+        l = [i for i in s if i.isdigit()]
+        p = ''
+        for i in l:
+            p += str(i).strip()
+
+        p1 = p[0:3]
+        p2 = p[3:6]
+        p3 = p[6:9]
+        p4 = p[9:11]
+        if len(p) == 3:
+            self.le_cpf.setText(f'{p1}.')
+        elif len(p) > 3 and len(p) < 6:
+            self.le_cpf.setText(f'{p1}.{p2}')
+        elif len(p) == 6:
+            self.le_cpf.setText(f'{p1}.{p2}.')
+        elif len(p) > 6 and len(p) < 9:
+            self.le_cpf.setText(f'{p1}.{p2}.{p3}')
+        elif len(p) == 9:
+            self.le_cpf.setText(f'{p1}.{p2}.{p3}-')
+        elif len(p) > 9 and len(p) < 11:
+            self.le_cpf.setText(f'{p1}.{p2}.{p3}-{p4}')
+        elif len(p) == 11:
+            self.le_cpf.setText(f'{p1}.{p2}.{p3}-{p4}')
+        else:
+            self.le_cpf.setText(p)
+
+    def mascara_telefone(self,s):
+        mascara = self.le_celular
+        mascara.setMaxLength(14)
+        l = [i for i in s if i.isdigit()]
+        p = ''
+        for i in l:
+            p += str(i).strip()
+
+        p1 = p[0:2]
+        p2 = p[2:]
+        if len(p) == 2:
+            self.le_celular.setText(f'({p1})')
+        elif len(p) > 2:
+            self.le_celular.setText(f'({p1}){p2}')
+        else:
+            self.le_celular.setText(p)
+
+    def mascara_cep(self,s):
+        self.le_cep.setMaxLength(10)
+
+        l = [i for i in s if i.isdigit()]
+        p = ''
+        for i in l:
+            p += str(i).strip()
+
+        p1 = p[0:2]
+        p2 = p[2:5]
+        p3 = p[5:9]
+        if len(p) == 2:
+            self.le_cep.setText(f'{p1}.')
+        elif len(p) > 2 and len(p) < 5:
+            self.le_cep.setText(f'{p1}.{p2}')
+        elif len(p) == 5:
+            self.le_cep.setText(f'{p1}.{p2}-')
+        elif len(p) > 5 and len(p) < 8:
+            self.le_cep.setText(f'{p1}.{p2}-{p3}')
+        elif len(p) == 8:
+            self.alimenta_cep(p)
+        else:
+            self.le_cep.setText(p)
 
     def alimenta_label_valor(self):
         db = DataBase()
@@ -119,6 +217,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i in l:
             p += str(i).strip()
         self.le_valor.setText(f'R${p}')
+
+    def mascara_desconto(self,s):
+        l = [i for i in s if i.isdigit() or i == ',' or i == '.']
+        p = ''
+        for i in l:
+            p += str(i).strip()
+        self.le_gerar_desconto.setText(f'R${p}')
 
     def mascara_quantidade(self,s):
         l = [i for i in s if i.isdigit()]
@@ -162,6 +267,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             result = msg.exec_()
             if result == QMessageBox.Yes:
                 cursor.execute(f'delete from estoque where id_produto ="{id_produto}"')
+                self.le_ID_produto.setText('')
                 db.conection.commit()
                 self.reset_tables()
                 db.close_conecta()
@@ -196,7 +302,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     valor_total = f'{valor*float(quant):.2f}'
                     cursor.execute(f'update estoque set UN ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".",",")}" where id_produto = "{id_produto}";')
                     db.conection.commit()
-                    self.messagebox_accept('PRODUTO ADICIONADO','PRODUTO ADICIONADO COM SUCESSO')
+                    self.messagebox_accept('PRODUTO ADICIONADO',f'FOI ADICIONADO "{quantidade} UNIDADES" COM SUCESSO')
+                    self.reset_campos()
                     self.reset_tables()
                 elif dado[5] != '--':
                     quant = f'{int(str(dado[5]).replace("R$", "")) + int(quantidade)}'
@@ -204,7 +311,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     cursor.execute(
                         f'update estoque set KG ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".", ",")}" where id_produto = "{id_produto}";')
                     db.conection.commit()
-                    self.messagebox_accept('PRODUTO ADICIONADO', 'PRODUTO ADICIONADO COM SUCESSO')
+                    self.messagebox_accept('PRODUTO ADICIONADO',f'FOI ADICIONADO "{quantidade} KILOS" COM SUCESSO')
+                    self.reset_campos()
                     self.reset_tables()
                 elif dado[6] != '--':
                     quant = f'{int(str(dado[6]).replace("R$", "")) + int(quantidade)}'
@@ -212,9 +320,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     cursor.execute(
                         f'update estoque set G ="{str(quant)}",data="{data}",hora="{hora}",user="{self.usuario}", valor_total="R${valor_total.replace(".", ",")}" where id_produto = "{id_produto}";')
                     db.conection.commit()
-                    self.messagebox_accept('PRODUTO ADICIONADO', 'PRODUTO ADICIONADO COM SUCESSO')
+                    self.messagebox_accept('PRODUTO ADICIONADO', f'FOI ADICIONADO "{quantidade} GRAMAS" COM SUCESSO')
+                    self.reset_campos()
                     self.reset_tables()
-
 
     def import_produto(self):
         db = DataBase()
@@ -242,27 +350,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     valorstr = self.le_valor.text().replace(',', '.').replace('R','').replace('$','')
                     if ref == 'KG':
                         db.insert_novo_produto(produto, user, valorstr, valor_total, kg=quantidade)
-                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.messagebox_accept('PRODUTO CADASTRADO',f'PRODUTO "{produto}" CADASTRADO COM SUCESSO')
                         self.reset_tables()
-                        self.le_produto.setText('')
-                        self.le_valor.setText('')
-                        self.le_quantidade.setText('')
+                        self.reset_campos()
                         db.close_conecta()
                     elif ref == 'G':
                         db.insert_novo_produto(produto, user, valorstr, valor_total, g=quantidade)
-                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.messagebox_accept('PRODUTO CADASTRADO',f'PRODUTO "{produto}" CADASTRADO COM SUCESSO')
                         self.reset_tables()
-                        self.le_produto.setText('')
-                        self.le_valor.setText('')
-                        self.le_quantidade.setText('')
+                        self.reset_campos()
                         db.close_conecta()
                     elif ref == 'UN':
                         db.insert_novo_produto(produto, user, valorstr, valor_total, un=quantidade)
-                        self.messagebox_accept('PRODUTO CADASTRADO','PRODUTO CADASTRADO COM SUCESSO')
+                        self.messagebox_accept('PRODUTO CADASTRADO',f'PRODUTO "{produto}" CADASTRADO COM SUCESSO')
                         self.reset_tables()
-                        self.le_produto.setText('')
-                        self.le_valor.setText('')
-                        self.le_quantidade.setText('')
+                        self.reset_campos()
                         db.close_conecta()
 
 
@@ -299,9 +401,51 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.le_ID_produto.setText(str(id_produto))
             self.le_produto.setText(produto)
             self.le_valor.setText(valor)
-            self.le_quantidade.setText(quantidade)
 
             db.close_conecta()
+
+    def get_saida_via_table(self):
+        y = self.tv_saida.currentIndex()
+        x = self.model_saida.primaryValues(y.row())
+        self.tv_saida.selectRow(y.row())
+        id_produto = x.value('ID_SAIDA')
+        db = DataBase()
+        db.conecta()
+        cursor = db.conection.cursor()
+        cursor.execute(f'select * from saida where ID_SAIDA = "{id_produto}";')
+        for campo in cursor.fetchall():
+            id_produto = campo[1]
+            produto = campo[2]
+            valor = campo[3].replace('R','').replace('$','')
+            quantidade_kg = campo[7]
+            quantidade_g = campo[8]
+            quantidade_un = campo[6]
+            ref = '--'
+            if quantidade_un == ref and quantidade_g == ref:
+                self.comboBox_un_saida.setCurrentIndex(0)
+                quantidade = quantidade_kg
+            elif quantidade_kg == ref and quantidade_g == ref:
+                self.comboBox_un_saida.setCurrentIndex(2)
+                quantidade = quantidade_un
+            else:
+                self.comboBox_un_saida.setCurrentIndex(1)
+                quantidade = quantidade_g
+            self.le_ID_produto_saida.setText(str(id_produto))
+            self.le_produto_saida.setText(produto)
+            self.le_valor_saida.setText(valor)
+
+            db.close_conecta()
+
+    def reset_campos(self):
+        self.le_quantidade.setText('')
+        self.le_quantidade_saida.setText('')
+        self.le_produto.setText('')
+        self.le_produto_saida.setText('')
+        self.le_valor.setText('')
+        self.le_gerar_desconto.setText('')
+        self.le_valor_saida.setText('')
+        self.le_ID_produto.setText('')
+        self.le_ID_produto_saida.setText('')
 
     def gerar_saida(self):
         db = DataBase()
@@ -310,6 +454,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         id_produto = self.le_ID_produto.text()
         if id_produto == '':
             self.messagebox_critical('Produto Não Encontrado', 'O Produto não foi encontrado\nSelecione o Produto a partir da lista de estoque e gere a saida')
+        elif self.le_quantidade.text() =='':
+            self.messagebox_aviso('QUANTIDADE NÃO INFORMADA','INFORME A QUANTIDADE PARA SER GERADA A SAIDA')
         else:
             cursor.execute(f'select * from estoque where ID_PRODUTO = "{id_produto}";')
             for v in cursor.fetchall():
@@ -346,24 +492,143 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.messagebox_critical('Quantidade Inválida', 'A quantidade de saída é maior doque a quantidade em estoque')
                     self.le_quantidade.setText(quantidade)
                 else:
+                    desconto = self.le_gerar_desconto.text().replace('R$','').replace(',','.') if self.le_gerar_desconto.text().replace('R$','').replace(',','.') != '' else 0
                     quantidade1 = self.le_quantidade.text()
-                    valor_total = f'{int(quantidade1)*float(valor):.2f}'
+                    valor_total = f'{float(quantidade1)*(float(valor)-float(desconto)):.2f}'
                     quantidade_saida = f'{int(quantidade)-int(self.le_quantidade.text())}'
                     valor_total_saida = f'{float(valor)*float(quantidade_saida):.2f}'
                     if tp == 'un':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=quantidade1)
-                        cursor.execute(
-                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",un="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,un=quantidade1,desconto=f'{float(desconto):.2f}')
+                        cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",un="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        self.messagebox_accept('SAIDA GERADA', f'A SAIDA DE "{quantidade1} UNIDADES" FOI GERADA COM SUCESSO')
                     elif tp == 'kg':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=quantidade1)
-                        cursor.execute(
-                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",kg="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,kg=quantidade1,desconto=f'{float(desconto):.2f}')
+                        cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",kg="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        self.messagebox_accept('SAIDA GERADA',f'A SAIDA DE "{quantidade1} KILOS" FOI GERADA COM SUCESSO')
                     elif tp == 'g':
-                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=quantidade1)
-                        cursor.execute(
-                            f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",g="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        db.insert_saida(id_produto,produto,self.usuario,valor,valor_total,g=quantidade1,desconto=f'{float(desconto):.2f}')
+                        cursor.execute(f'update estoque set valor_total="R${valor_total_saida.replace(".",",")}",g="{quantidade_saida}" where id_produto ="{id_produto}";')
+                        self.messagebox_accept('SAIDA GERADA',f'A SAIDA DE "{quantidade1} GRAMAS" FOI GERADA COM SUCESSO')
                     db.conection.commit()
+                    self.reset_campos()
                     self.reset_tables()
+
+    def gerar_extorno(self):
+        y = self.tv_saida.currentIndex()
+        x = self.model_saida.primaryValues(y.row())
+        self.tv_saida.selectRow(y.row())
+        id_saida = x.value('ID_SAIDA')
+        db = DataBase()
+        db.conecta()
+        cursor = db.conection.cursor()
+        cursor.execute(f'select * from saida where id_saida ="{id_saida}";')
+        for dado in cursor.fetchall():
+            id_estoque = dado[1]
+            produto_saida = dado[2]
+            valor_saida = str(dado[3]).replace('R$','').replace(",",".")
+            un = dado[6]
+            kg = dado[7]
+            g = dado[8]
+            if un =='--' and kg == '--':
+                quantidade = g
+                tp = 'g'
+            elif g =='--' and kg =='--':
+                quantidade = un
+                tp = 'un'
+            else:
+                quantidade = kg
+                tp = 'kg'
+            if self.le_quantidade_saida.text() == '':
+                self.messagebox_aviso('QUANTIDADE NÃO INFORMADA', 'INFORME A QUANTIDADE PARA SER EXTORNADA AO ESTOQUE')
+            elif int(quantidade) < int(self.le_quantidade_saida.text()):
+                self.messagebox_critical('QUANTIDADE NÃO ENCONTRADA', 'A QUANTIDADE QUE ESTÁ TENTANDO EXTORNAR É MAIOR QUE A QUANTIDADE DA SAIDA')
+                self.le_quantidade_saida.setText(quantidade)
+            elif int(quantidade) == int(self.le_quantidade_saida.text()):
+                if tp == 'un':
+                    cursor.execute(f'select un from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update estoque set un = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'delete from saida where id_saida = {id_saida}')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} UNIDADES" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+                elif tp == 'kg':
+                    cursor.execute(f'select kg from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update estoque set kg = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'delete from saida where id_saida = {id_saida}')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} KILOS" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+                elif tp == 'g':
+                    cursor.execute(f'select g from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update estoque set g = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'delete from saida where id_saida = {id_saida}')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} GRAMAS" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+
+            else:
+                quantidade = self.le_quantidade_saida.text()
+                if tp == 'un':
+                    cursor.execute(f'select un from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.',',')
+                    cursor.execute(f'update estoque set un = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'select un from saida where id_saida = "{id_saida}"')
+                    quantidade_saida = (cursor.fetchone())[0]
+                    nova_quantidade_saida = str(int(quantidade_saida)-int(quantidade))
+                    novo_valor_total_saida = f'{float(valor_saida)*(int(quantidade_saida)-int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update saida set un = "{nova_quantidade_saida}", valor_total = "R${novo_valor_total_saida}"where id_saida ="{id_saida}"')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} UNIDADES" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+                elif tp == 'kg':
+                    cursor.execute(f'select kg from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    print(quantidade_estoque)
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    print(nova_quantidade_estoque)
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.',',')
+                    print(valor_total)
+                    cursor.execute(f'update estoque set kg = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'select un from saida where id_saida = "{id_saida}"')
+                    quantidade_saida = (cursor.fetchone())[0]
+                    nova_quantidade_saida = str(int(quantidade_saida) - int(quantidade))
+                    novo_valor_total_saida = f'{float(valor_saida) * (int(quantidade_saida) - int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update saida set kg = "{nova_quantidade_saida}", valor_total = "R${novo_valor_total_saida}"where id_saida ="{id_saida}"')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} KILOS" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+                elif tp == 'g':
+                    cursor.execute(f'select g from estoque where id_produto = "{id_estoque}";')
+                    quantidade_estoque = (cursor.fetchone())[0]
+                    nova_quantidade_estoque = str(int(quantidade_estoque) + int(quantidade))
+                    valor_total = f'{float(valor_saida) * (int(quantidade_estoque) + int(quantidade)):.2f}'.replace('.',',')
+                    cursor.execute(f'update estoque set g = "{nova_quantidade_estoque}", valor_total = "R${valor_total}"where id_produto ="{id_estoque}"')
+                    cursor.execute(f'select un from saida where id_saida = "{id_saida}"')
+                    quantidade_saida = (cursor.fetchone())[0]
+                    nova_quantidade_saida = str(int(quantidade_saida) - int(quantidade))
+                    novo_valor_total_saida = f'{float(valor_saida) * (int(quantidade_saida) - int(quantidade)):.2f}'.replace('.', ',')
+                    cursor.execute(f'update saida set g = "{nova_quantidade_saida}", valor_total = "R${novo_valor_total_saida}"where id_saida ="{id_saida}"')
+                    self.messagebox_accept('QUANTIDADE EXTORNADA',f'FOI EXTORNADO "{quantidade} GRAMAS" PARA O ESTOQUE')
+                    db.conection.commit()
+                    self.reset_campos()
+                    self.reset_tables()
+        db.close_conecta()
 
     def messagebox_critical(self,title, txt):
         msg = QMessageBox(self)
@@ -393,8 +658,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         senha = self.le_senha1.text().strip()
         usuario = self.le_novo_usuario.text().strip()
         acess = self.cb_users.currentText()
-
-
         if senha != self.le_senha2.text().strip():
             self.messagebox_critical("Senhas Divergentes",'As senhas informadas não são iguais\nPreencha os campos com as senhas iguais.')
             self.le_senha1.setText('')
@@ -515,27 +778,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         celular = self.le_celular.text().upper().strip()
 
         if nome == '':
-            self.messagebox_aviso("CAMPO VAZIO",'O CAMPO "NOME" ESTA VAZIO')
+            self.messagebox_aviso("CAMPOS VAZIOS",'O CAMPO "NOME" ESTA VAZIO')
 
         elif nome.isnumeric():
-            self.messagebox_aviso('O CAMPO "NOME" NÃO PODE CONTER NUMEROS')
+            self.messagebox_aviso('FORMATO INVALIDO','O CAMPO "NOME" NÃO PODE CONTER NUMEROS')
             self.le_nome.setText('')
 
 
         elif cep == '':
-            self.messagebox_critical('O CAMPO "CEP" ESTA VAZIO')
+            self.messagebox_critical('CAMPOS VAZIOS','O CAMPO "CEP" ESTA VAZIO')
 
-        elif cep.isalpha():
-            self.messagebox_critical('O CAMPO "CEP" DEVE SER NUMERICO')
-            self.le_cep.setText('')
-
-        elif len(cep) != 8:
-            self.messagebox_critical('O CAMPO CEP DEVE TER 8 DIGITOS')
 
         else:
             db.insert_novo_cliente(nome, cep, data, email, endereco, numero, bairro, cidade, complemento, cpf,celular)
             self.reset_tables()
-            self.messagebox_accept('CADASTRO REALIZADO COM SUCESSO!')
+            self.messagebox_accept('CADASTRO REALIZADO','CADASTRO REALIZADO COM SUCESSO!')
             self.le_nome.setText('')
             self.le_email.setText('')
             self.le_endereo.setText('')
@@ -549,7 +806,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             db.close_conecta()
 
     def alimenta_cep(self,cep):
-        if len(self.le_cep.text()) == 8:
             try:
                 ceps = requests.get(f'http://viacep.com.br/ws/{cep}/json/')
                 ceps = ceps.json()
@@ -558,8 +814,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.le_municipio.setText(f'{ceps["localidade"]}')
                 self.le_complemento.setText(f'{ceps["complemento"]}')
             except:
-                self.messagebox_critical('CEP INVÁLIDO')
-                self.le_cep.setText('')
+                self.messagebox_aviso('CEP NÃO ENCONTRADO','CEP NÃO ENCONTRADO')
+                self.le_endereo.setText('')
+                self.le_bairro.setText('')
+                self.le_municipio.setText('')
+                self.le_complemento.setText('')
 
 
 

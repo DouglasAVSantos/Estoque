@@ -75,9 +75,11 @@ class DataBase():
             cursor = self.conection.cursor()
             cursor.execute('''
             CREATE TABLE IF NOT EXISTS saida(
+            ID_SAIDA INTEGER PRIMARY KEY AUTOINCREMENT,
             ID_PRODUTO TEXT NOT NULL,
             PRODUTO TEXT NOT NULL,
             VALOR TEXT NOT NULL,
+            DESCONTO TEXT NOT NULL,
             VALOR_TOTAL TEXT NOT NULL,
             UN TEXT NULL,
             KG TEXT NULL,
@@ -114,14 +116,14 @@ class DataBase():
                     ''')
         self.conection.commit()
 
-    def insert_saida(self,id_produto,produto,user, valor,valor_total, un='--', kg='--', g='--'):
+    def insert_saida(self,id_produto,produto,user, valor,valor_total,desconto=0, un='--', kg='--', g='--'):
         d = datetime.now()
         data = d.strftime('%d/%m/%y')
         hora = d.strftime('%H:%M')
         try:
             cursor = self.conection.cursor()
             cursor.execute(f'''
-                INSERT INTO saida(id_produto,produto, valor,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${str(valor).replace('.',',')}','R${str(valor_total).replace('.',',')}','{un}','{kg}','{g}','{data}','{hora}','{user}');
+                INSERT INTO saida(id_produto,produto, valor,desconto,valor_total,un,kg,g,data,hora,user) VALUES('{id_produto}','{produto.strip().title()}','R${str(valor).replace('.',',')}','R${str(desconto).replace('.',',')}','R${str(valor_total).replace('.',',')}','{un}','{kg}','{g}','{data}','{hora}','{user}');
             ''')
             self.conection.commit()
         except AttributeError:

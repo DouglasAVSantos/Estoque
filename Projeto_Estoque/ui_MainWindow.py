@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         MainWindow.setFont(font)
         icon = QIcon()
-        icon.addFile(u"logo2.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"img/logo2.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"alternate-background-color: rgb(225, 225, 225);")
         self.centralwidget = QWidget(MainWindow)
@@ -655,6 +655,28 @@ class Ui_MainWindow(object):
         self.le_valor.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.le_valor)
+
+        self.label_31 = QLabel(self.frame_15)
+        self.label_31.setObjectName(u"label_31")
+        self.label_31.setMaximumSize(QSize(16777215, 20))
+        self.label_31.setFont(font4)
+        self.label_31.setStyleSheet(u"background-color: rgb(166, 23, 38);\n"
+"border-radius: 8px;\n"
+"color: rgb(255, 255, 255);\n"
+"border-width: 2px;\n"
+"border-color: black;\n"
+"border-style: solid;\n"
+"display: inline-block;")
+        self.label_31.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_31)
+
+        self.le_gerar_desconto = QLineEdit(self.frame_15)
+        self.le_gerar_desconto.setObjectName(u"le_gerar_desconto")
+        self.le_gerar_desconto.setFont(font)
+        self.le_gerar_desconto.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.le_gerar_desconto)
 
 
         self.verticalLayout_28.addWidget(self.frame_15)
@@ -1770,6 +1792,7 @@ class Ui_MainWindow(object):
         self.comboBox_un.setItemText(2, QCoreApplication.translate("MainWindow", u"UN", None))
 
         self.label_44.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"GERAR DESCONTO", None))
         self.label_49.setText(QCoreApplication.translate("MainWindow", u"ID PRODUTO", None))
         self.label_45.setText(QCoreApplication.translate("MainWindow", u"PRODUTO", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"QUANTIDADE", None))
