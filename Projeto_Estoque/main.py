@@ -260,14 +260,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
             msg.setWindowTitle('DELETAR PRODUTO')
-            msg.setText('TEM CERTEZA QUE DESEJA DELETAR O PRODUTO SELECIONADO?')
+            msg.setText('TEM CERTEZA QUE DESEJA DELETAR O PRODUTO SELECIONADO?\nO PRODUTO CADASTRADO E TODA A SAIDA DELE SERA PERDIDA')
             msg.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
             msg.setButtonText(QMessageBox.Yes,'SIM')
             msg.setButtonText(QMessageBox.No,'NÃO')
             result = msg.exec_()
             if result == QMessageBox.Yes:
                 cursor.execute(f'delete from estoque where id_produto ="{id_produto}"')
-                self.le_ID_produto.setText('')
+                cursor.execute(f'delete from saida where id_produto = "{id_produto}"')
+                self.reset_campos()
                 db.conection.commit()
                 self.reset_tables()
                 db.close_conecta()
@@ -284,16 +285,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         produto = self.le_produto.text()
         tipo = self.comboBox_un.currentText()
         quantidade = self.le_quantidade.text()
-        valor = float(self.le_valor.text().replace('R$','').replace(',','.'))
+        valor = self.le_valor.text()
         if id_produto == '':
             self.messagebox_aviso('PRODUTO NÃO ENCONTRADO','ADICIONANDO UM PRODUTO JÁ CADASTRADO:\n1º SELECIONE O PRODUTO NA TABELA\n2º MUDE APÉNAS O CAMPO QUANTIDADE\n3º A QUANTIDADE SERA SOMADA A QUANTIDADE EM ESTOQUE')
+            self.reset_campos()
         elif produto =='':
             self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO PRODUTO ESTÁ VAZIO')
+            self.reset_campos()
         elif quantidade =='':
             self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO QUANTIDADE ESTÁ VAZIO')
+            self.reset_campos()
         elif valor =='':
             self.messagebox_aviso('CAMPO VAZIO', 'O CAMPO VALOR ESTÁ VAZIO')
+            self.reset_campos()
         else:
+            valor = float(self.le_valor.text().replace('R$','').replace(',','.'))
             cursor = db.conection.cursor()
             cursor.execute(f'select * from estoque where id_produto = "{id_produto}"')
             for dado in cursor.fetchall():
@@ -702,8 +708,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if r == QMessageBox.Yes:
                 db.delete_user(usuario)
                 self.messagebox_accept('USUARIO DELETADO','USUARIO DELETADO COM SUCESSO!')
-                self.le_usuario_deletar.setText('')
-                self.le_senha_deletar.setText('')
+                self.reset_campos()
                 db.close_conecta()
             else:
                 pass
